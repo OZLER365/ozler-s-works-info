@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OZLER – Extensions & Userscripts</title>
+
+<style>
+    :root {
+        --bg: #0f172a;
+        --card: #111827;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --accent: #38bdf8;
+        --border: #1f2933;
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, sans-serif;
+    }
+
+    body {
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        padding: 24px;
+    }
+
+    .container {
+        max-width: 1000px;
+        margin: auto;
+    }
+
+    header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    header h1 {
+        font-size: 2rem;
+        margin-bottom: 8px;
+    }
+
+    header p {
+        color: var(--muted);
+    }
+
+    .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-bottom: 40px;
+    }
+
+    .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 20px;
+    }
+
+    .card h2 {
+        margin-bottom: 10px;
+        color: var(--accent);
+    }
+
+    .card p {
+        color: var(--muted);
+        font-size: 0.95rem;
+    }
+
+    .donation {
+        background: linear-gradient(135deg, #0284c7, #38bdf8);
+        color: #020617;
+        padding: 24px;
+        border-radius: 16px;
+        text-align: center;
+        margin-bottom: 40px;
+    }
+
+    .donation h3 {
+        margin-bottom: 10px;
+    }
+
+    .donation a {
+        display: inline-block;
+        margin-top: 12px;
+        padding: 10px 18px;
+        background: #020617;
+        color: #38bdf8;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+    .donation a:hover {
+        opacity: 0.85;
+    }
+
+    .about {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        padding: 24px;
+        margin-bottom: 30px;
+    }
+
+    .about h3 {
+        margin-bottom: 10px;
+    }
+
+    .links {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 10px;
+        margin-top: 12px;
+    }
+
+    .links a {
+        color: var(--accent);
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    footer {
+        text-align: center;
+        font-size: 0.85rem;
+        color: var(--muted);
+    }
+
+    footer a {
+        color: var(--accent);
+        text-decoration: none;
+    }
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+    <h1>Thank You for Installing</h1>
+    <p>Browser Extensions & Userscripts by OZLER</p>
+</header>
+
+<section class="cards">
+    <div class="card">
+        <h2>Browser Extensions</h2>
+        <p>
+            Lightweight, privacy-friendly extensions designed to improve your
+            browsing experience while staying fast and lag-free.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Userscripts</h2>
+        <p>
+            Useful Greasemonkey / Tampermonkey scripts that enhance websites
+            without unnecessary complexity.
+        </p>
+    </div>
+</section>
+
+<section class="donation">
+    <h3>Help Keep This Extension and Userscripts Updated and Running Smoothly</h3>
+    <p>With a Small Donation ❤️</p>
+    <a href="https://buymeacoffee.com/ozler" target="_blank">Donate</a>
+</section>
+
+<section class="about">
+    <h3>About Me</h3>
+    <p>
+        I love to do <strong>Voice Acting</strong> and a little bit of
+        <strong>light Coding</strong> and as well as targeting to becoming a
+        <strong>Cabin Crew</strong>.
+    </p>
+
+    <div class="links">
+        <a href="mailto:devjk6918@gmail.com">📧 Email</a>
+        <a href="https://github.com/OZLER365" target="_blank">🐙 GitHub</a>
+        <a href="https://greasyfork.org/en/users/1553223-ozler365" target="_blank">🧩 GreasyFork</a>
+        <a href="https://addons.mozilla.org/en-US/firefox/user/19010700/" target="_blank">🦊 Firefox Add-ons</a>
+        <a href="https://www.instagram.com/weebtopiaofficial" target="_blank">📸 Instagram</a>
+        <a href="https://x.com/theweebtopia" target="_blank">𝕏 Twitter</a>
+        <a href="https://www.reddit.com/u/False_Month1541" target="_blank">👽 Reddit</a>
+        <a href="https://discord.gg/CJ2GA8vqd" target="_blank">💬 Discord</a>
+        <a href="https://t.me/Ozler365" target="_blank">✈️ Telegram</a>
+        <a href="https://www.threads.com/@weebtopiaofficial" target="_blank">🧵 Threads</a>
+    </div>
+</section>
+
+<footer>
+    <p>
+        All works are licensed under the
+        <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>
+    </p>
+</footer>
+
+</div>
+</body>
+</html>

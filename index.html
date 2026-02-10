@@ -15,6 +15,15 @@
     --border: #1f2937;
 }
 
+[data-theme="light"] {
+    --bg: #f8fafc;
+    --card: #ffffff;
+    --text: #020617;
+    --muted: #475569;
+    --accent: #0284c7;
+    --border: #e5e7eb;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -26,6 +35,7 @@ body {
     background: var(--bg);
     color: var(--text);
     padding: 24px;
+    transition: background 0.2s ease, color 0.2s ease;
 }
 
 .container {
@@ -36,6 +46,7 @@ body {
 header {
     text-align: center;
     margin-bottom: 40px;
+    position: relative;
 }
 
 header h1 {
@@ -45,6 +56,18 @@ header h1 {
 
 header p {
     color: var(--muted);
+}
+
+.toggle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: var(--card);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-size: 0.85rem;
 }
 
 .grid {
@@ -71,7 +94,7 @@ header p {
 }
 
 .card li {
-    margin-bottom: 12px;
+    margin-bottom: 14px;
 }
 
 .card a {
@@ -80,15 +103,10 @@ header p {
     font-size: 0.9rem;
 }
 
-.card span {
-    color: var(--muted);
-    font-size: 0.85rem;
-}
-
 .donation {
     background: linear-gradient(135deg, #0284c7, #38bdf8);
     color: #020617;
-    padding: 24px;
+    padding: 26px;
     border-radius: 16px;
     text-align: center;
     margin-bottom: 40px;
@@ -96,13 +114,18 @@ header p {
 
 .donation a {
     display: inline-block;
-    margin-top: 12px;
-    padding: 10px 18px;
+    margin-top: 14px;
+    padding: 10px 20px;
     background: #020617;
     color: #38bdf8;
     border-radius: 10px;
     text-decoration: none;
     font-weight: 600;
+}
+
+.notice {
+    margin-top: 18px;
+    font-size: 0.9rem;
 }
 
 .about {
@@ -143,8 +166,9 @@ footer a {
 <div class="container">
 
 <header>
+    <button class="toggle" onclick="toggleTheme()">🌙 / ☀️</button>
     <h1>Thank You for Installing</h1>
-    <p>Extensions & Userscripts by OZLER</p>
+    <p>Browser Extensions & Userscripts by OZLER</p>
 </header>
 
 <section class="grid">
@@ -155,7 +179,11 @@ footer a {
         <li>
             <strong>Universal Image Downloader</strong><br>
             <a href="https://addons.mozilla.org/en-US/firefox/addon/universal-image-downloader/" target="_blank">
-                Firefox Add-ons →
+                Firefox Add-ons
+            </a>
+            ·
+            <a href="https://github.com/OZLER365/Image-Downloader-Extension-Firefox" target="_blank">
+                GitHub
             </a>
         </li>
     </ul>
@@ -242,14 +270,25 @@ footer a {
     <h3>Help Keep These Projects Updated and Running Smoothly</h3>
     <p>With a Small Donation ❤️</p>
     <a href="https://buymeacoffee.com/ozler" target="_blank">Donate</a>
+
+    <div class="notice">
+        <p>
+            Please read all instructions on how to use these userscripts and the
+            extension before installing.
+        </p>
+        <p>
+            Share your honest feedback and feature requests via
+            email, GitHub, GreasyFork, or the Firefox Add-ons store.
+        </p>
+    </div>
 </section>
 
 <section class="about">
     <h3>About Me</h3>
     <p>
-        I love to do <strong>Voice Acting</strong>, a little bit of
-        <strong>light Coding</strong>, and I am also targeting to become a
-        <strong>Cabin Crew</strong>.
+        I love doing <strong>voice acting</strong>, some
+        <strong>light coding</strong>, and I am also aiming to become a
+        <strong>cabin crew member</strong>.
     </p>
 
     <div class="links">
@@ -274,5 +313,14 @@ footer a {
 </footer>
 
 </div>
+
+<script>
+function toggleTheme() {
+    const html = document.documentElement;
+    const current = html.getAttribute("data-theme");
+    html.setAttribute("data-theme", current === "light" ? "dark" : "light");
+}
+</script>
+
 </body>
 </html>

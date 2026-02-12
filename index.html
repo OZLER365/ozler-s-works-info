@@ -1035,7 +1035,7 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-// --- VIEW SWITCHING LOGIC ---
+// --- VIEW SWITCHING LOGIC WITH URL ROUTING ---
 function switchView(viewName) {
     const views = ['home', 'projects', 'feedback', 'about'];
     
@@ -1053,7 +1053,60 @@ function switchView(viewName) {
     });
 
     window.scrollTo(0, 0);
+    
+    // Update URL hash
+    const hashMap = {
+        'home': '#/home',
+        'projects': '#/all-projects',
+        'feedback': '#/feedbacks-and-reports',
+        'about': '#/about-developer'
+    };
+    history.pushState(null, '', hashMap[viewName] || '#/home');
 }
+
+// --- URL ROUTING HANDLER ---
+function handleRouting() {
+    const hash = window.location.hash;
+    
+    // Map URL hash to view names
+    const routeMap = {
+        '#/home': 'home',
+        '#home': 'home',
+        '#/all-projects': 'projects',
+        '#all-projects': 'projects',
+        '#/feedbacks-and-reports': 'feedback',
+        '#feedbacks-and-reports': 'feedback',
+        '#/about-developer': 'about',
+        '#about-developer': 'about',
+        '': 'home',
+        '#': 'home',
+        '#/': 'home'
+    };
+    
+    const viewName = routeMap[hash] || 'home';
+    
+    const views = ['home', 'projects', 'feedback', 'about'];
+    views.forEach(v => {
+        const section = document.getElementById(v + '-view');
+        const nav = document.getElementById('nav-' + v);
+        
+        if (v === viewName) {
+            section.classList.add('active-view');
+            nav.classList.add('active');
+        } else {
+            section.classList.remove('active-view');
+            nav.classList.remove('active');
+        }
+    });
+    
+    window.scrollTo(0, 0);
+}
+
+// Listen for hash changes (browser back/forward buttons)
+window.addEventListener('hashchange', handleRouting);
+
+// Load correct view on page load
+window.addEventListener('DOMContentLoaded', handleRouting);
 
 // --- THEME LOGIC ---
 function toggleTheme() {

@@ -2,7 +2,7 @@
 <html lang="en" data-theme="dark">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
 <title>OZLER – Extensions & Userscripts</title>
 
 <style>
@@ -31,10 +31,16 @@
     --input-bg: #f1f5f9;
 }
 
-* {
+html {
+    box-sizing: border-box;
+    overflow-x: hidden;
+    width: 100%;
+}
+
+*, *::before, *::after {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    box-sizing: inherit;
     font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
     transition: none !important;
     scroll-behavior: auto !important;
@@ -45,7 +51,8 @@ body {
     color: var(--text);
     padding: 0; 
     overflow-x: hidden;
-    transition: .2s;
+    width: 100%;
+    max-width: 100vw;
 }
 
 /* Navbar */
@@ -59,6 +66,9 @@ body {
     position: sticky;
     top: 0;
     z-index: 100;
+    width: 100%;
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 .logo {
@@ -108,6 +118,8 @@ body {
     max-width: 1400px;
     margin: 40px auto;
     padding: 0 24px;
+    width: 100%;
+    overflow-x: hidden;
 }
 
 /* Views Utility */
@@ -146,6 +158,8 @@ body {
     display: flex;
     flex-direction: column;
     gap: 50px;
+    width: 100%;
+    max-width: 100%;
 }
 
 @media (min-width: 1024px) {
@@ -162,6 +176,12 @@ body {
     }
 }
 
+.content-column {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .section-title {
     font-size: 1.4rem;
     font-weight: 600;
@@ -173,7 +193,10 @@ body {
 .slider-wrapper {
     position: relative;
     margin-bottom: 15px;
-    padding: 0 10px; 
+    padding: 0 40px;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 .slider {
@@ -181,6 +204,10 @@ body {
     min-height: 350px;
     display: flex;
     justify-content: center;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
 }
 
 .slider .card {
@@ -195,25 +222,37 @@ body {
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 32px;
-    border: 1px solid var(--border);
+    width: 35px;
+    border: none;
     background: var(--card);
     color: var(--accent);
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     cursor: pointer;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
-    opacity: 0.8;
-    border-radius: 6px;
+    opacity: 0.7;
+    border-radius: 8px;
     margin: auto 0;
-    height: 80px;
+    height: 100px;
 }
 
 .slider-btn:hover { opacity: 1; background: var(--btn-hover); }
 .slider-btn.prev { left: 0; }
 .slider-btn.next { right: 0; }
+
+@media (max-width: 768px) { 
+    .slider-wrapper { padding: 0 35px; }
+    .slider-btn { 
+        width: 30px;
+        height: 60px;
+        font-size: 1.2rem;
+        opacity: 0.9;
+        border-radius: 4px;
+    }
+    .slider { scrollbar-width: thin; }
+}
 
 /* Cards */
 .card {
@@ -455,91 +494,343 @@ footer {
 footer a { color: var(--accent); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 
-/* ============================================ */
-/* MOBILE RESPONSIVE STYLES */
-/* ============================================ */
-
-/* Tablet and below */
-@media (max-width: 1024px) {
-    .container {
-        padding: 0 16px;
-    }
-}
-
-/* Mobile devices */
+/* --- MOBILE RESPONSIVE STYLES --- */
 @media (max-width: 768px) {
+    body {
+        overflow-x: hidden;
+    }
+
     .navbar {
         padding: 12px 16px;
     }
-    
+
     .logo {
-        font-size: 1.2rem;
+        font-size: 1.3rem;
+        margin-right: 20px;
     }
-    
+
     .nav-links {
-        overflow-x: auto;
         scrollbar-width: none;
+        -ms-overflow-style: none;
     }
-    
+
     .nav-links::-webkit-scrollbar {
         display: none;
     }
-    
+
     .nav-item {
         font-size: 0.85rem;
         padding: 6px 12px;
     }
-    
+
     .theme-toggle {
-        padding: 6px 12px;
         font-size: 0.85rem;
+        padding: 6px 12px;
     }
-    
+
     .container {
-        padding: 0 12px;
-    }
-    
-    .page-header h1 {
-        font-size: 1.6rem;
-    }
-    
-    .slider-wrapper {
-        padding: 0 8px;
-    }
-    
-    .slider-btn {
-        width: 28px;
-        height: 70px;
-        font-size: 1.2rem;
-    }
-    
-    .card {
+        padding: 0 16px;
         max-width: 100%;
     }
-    
+
+    .page-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .page-header p {
+        font-size: 1rem;
+    }
+
+    .feedback-highlight h2 {
+        font-size: 1.8rem;
+    }
+
+    .section-title {
+        font-size: 1.2rem;
+    }
+
+    .content-grid {
+        gap: 30px;
+    }
+
+    .slider-wrapper {
+        padding: 0 35px;
+        width: 100%;
+        overflow: visible;
+    }
+
+    .slider {
+        min-height: 320px;
+    }
+
+    .slider-btn {
+        width: 30px;
+        height: 60px;
+        font-size: 1.2rem;
+        opacity: 0.9;
+        border-radius: 4px;
+    }
+
+    .slider-btn:active {
+        opacity: 1;
+        background: var(--accent);
+    }
+
+    .card {
+        min-width: 280px;
+        max-width: 280px;
+        padding: 18px;
+        height: auto;
+        min-height: 310px;
+    }
+
+    .card-header {
+        margin-bottom: 10px;
+    }
+
+    .card-icon {
+        width: 36px;
+        height: 36px;
+    }
+
+    .card h3 {
+        font-size: 1rem;
+    }
+
+    .card .description {
+        font-size: 0.85rem;
+        -webkit-line-clamp: 4;
+    }
+
+    .card .links {
+        padding-top: 12px;
+        margin-top: 12px;
+    }
+
+    .card .links-label {
+        font-size: 0.65rem;
+        margin-bottom: 6px;
+    }
+
+    .card a {
+        font-size: 0.75rem;
+        padding: 5px 8px;
+    }
+
+    .link-icon {
+        width: 12px;
+        height: 12px;
+    }
+
+    .action-section {
+        padding: 30px 20px;
+    }
+
+    .action-section h3 {
+        font-size: 1.5rem;
+    }
+
+    .action-section p {
+        font-size: 0.95rem;
+    }
+
     .btn-group {
         flex-direction: column;
+        align-items: stretch;
     }
-    
+
     .action-btn {
-        width: 100%;
+        font-size: 0.9rem;
+        min-width: 100%;
+        padding: 12px 20px;
+    }
+
+    .section-notice {
+        font-size: 0.9rem;
+        padding: 14px;
+        margin-bottom: 30px;
+    }
+
+    .about-container {
+        padding: 30px 20px;
+    }
+
+    .about-text {
+        font-size: 0.95rem;
+    }
+
+    .about-text p {
+        margin-bottom: 16px;
+    }
+
+    .feedback-wrapper {
+        max-width: 100%;
+    }
+
+    .feedback-section {
+        padding: 24px 20px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    label {
+        font-size: 0.9rem;
+    }
+
+    select, textarea, input {
+        padding: 12px;
+        font-size: 0.95rem;
+    }
+
+    .feedback-btn {
+        padding: 14px;
+        font-size: 1rem;
+    }
+
+    .github-icon {
+        width: 18px;
+        height: 18px;
+    }
+
+    .note {
+        font-size: 0.85rem;
+        padding: 12px;
+    }
+
+    .social-links {
+        gap: 10px;
+        padding: 16px 0;
+    }
+
+    .social-links a {
+        font-size: 0.85rem;
+        padding: 7px 12px;
+    }
+
+    footer {
+        font-size: 0.8rem;
+        padding: 24px 16px;
     }
 }
 
-/* Small mobile */
 @media (max-width: 480px) {
+    .logo {
+        font-size: 1.1rem;
+        margin-right: 12px;
+    }
+
+    .nav-item {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    .theme-toggle {
+        font-size: 0.8rem;
+        padding: 5px 10px;
+    }
+
+    .page-header {
+        margin-bottom: 40px;
+    }
+
+    .page-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .page-header p {
+        font-size: 0.9rem;
+    }
+
+    .feedback-highlight h2 {
+        font-size: 1.5rem;
+    }
+
+    .section-title {
+        font-size: 1.1rem;
+        padding-left: 10px;
+        border-left-width: 3px;
+    }
+
     .slider-wrapper {
-        padding: 0;
+        padding: 0 30px;
     }
-    
+
+    .slider {
+        min-height: 300px;
+    }
+
     .slider-btn {
-        display: none;
+        width: 25px;
+        height: 50px;
+        font-size: 1rem;
     }
-    
+
     .card {
-        min-width: 100%;
+        min-width: 260px;
+        max-width: 260px;
+        padding: 16px;
+        min-height: 290px;
+    }
+
+    .card-icon {
+        width: 32px;
+        height: 32px;
+    }
+
+    .card h3 {
+        font-size: 0.95rem;
+    }
+
+    .card .description {
+        font-size: 0.8rem;
+    }
+
+    .card a {
+        font-size: 0.7rem;
+        padding: 4px 7px;
+    }
+
+    .action-section {
+        padding: 24px 16px;
+    }
+
+    .action-section h3 {
+        font-size: 1.3rem;
+    }
+
+    .action-section p {
+        font-size: 0.9rem;
+    }
+
+    .action-btn {
+        font-size: 0.85rem;
+        padding: 12px 16px;
+    }
+
+    .about-container {
+        padding: 24px 16px;
+    }
+
+    .about-text {
+        font-size: 0.9rem;
+    }
+
+    .feedback-section {
+        padding: 20px 16px;
+    }
+
+    select, textarea, input {
+        font-size: 0.9rem;
+    }
+
+    .social-links a {
+        font-size: 0.8rem;
+        padding: 6px 10px;
     }
 }
+
 
 </style>
 </head>
@@ -581,7 +872,7 @@ footer a:hover { text-decoration: underline; }
 
         <!-- Social Links (Same as About) -->
         <div class="social-links">
-            <a href="/cdn-cgi/l/email-protection#80effaece5f2c0e5f8e1edf0ece5aee3efed"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z'/%3E%3C/svg%3E" alt="Email" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> Email</a>
+            <a href="/cdn-cgi/l/email-protection#573332213d3c616e666f17303a363e3b7934383a"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z'/%3E%3C/svg%3E" alt="Email" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> Email</a>
             <a href="https://github.com/OZLER365" target="_blank"><svg style="width:16px;height:16px;vertical-align:middle;margin-right:6px;" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> GitHub</a>
             <a href="https://greasyfork.org/en/users/1553223-ozler365" target="_blank"><img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> GreasyFork</a>
             <a href="https://addons.mozilla.org/en-US/firefox/user/19010700/" target="_blank"><img src="https://blog.mozilla.org/opendesign/files/2018/07/firefox-logo-600x619.png" alt="Firefox" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> Firefox</a>
@@ -1093,7 +1384,7 @@ footer a:hover { text-decoration: underline; }
 
             <!-- Personal Links (Same as Home) -->
             <div class="social-links">
-                <a href="/cdn-cgi/l/email-protection#eb8491878e99ab8e938a869b878ec5888486"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z'/%3E%3C/svg%3E" alt="Email" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> Email</a>
+                <a href="/cdn-cgi/l/email-protection#f29697849899c4cbc3cab2959f939b9edc919d9f"><img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.897L1 5.383v5.722Z'/%3E%3C/svg%3E" alt="Email" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> Email</a>
                 <a href="https://github.com/OZLER365" target="_blank"><svg style="width:16px;height:16px;vertical-align:middle;margin-right:6px;" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg> GitHub</a>
                 <a href="https://greasyfork.org/en/users/1553223-ozler365" target="_blank"><img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> GreasyFork</a>
                 <a href="https://addons.mozilla.org/en-US/firefox/user/19010700/" target="_blank"><img src="https://blog.mozilla.org/opendesign/files/2018/07/firefox-logo-600x619.png" alt="Firefox" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> Firefox</a>
@@ -1217,50 +1508,39 @@ function slide(sliderId, direction) {
     cards[currentIndex].classList.add('active');
 }
 
-// --- MOBILE TOUCH SWIPE SUPPORT ---
-function addSwipeSupport() {
+// --- TOUCH SUPPORT FOR SLIDERS ---
+document.addEventListener('DOMContentLoaded', function() {
     const sliders = document.querySelectorAll('.slider');
     
     sliders.forEach(slider => {
         let touchStartX = 0;
         let touchEndX = 0;
-        let touchStartY = 0;
-        let touchEndY = 0;
         
         slider.addEventListener('touchstart', function(e) {
             touchStartX = e.changedTouches[0].screenX;
-            touchStartY = e.changedTouches[0].screenY;
         }, { passive: true });
         
         slider.addEventListener('touchend', function(e) {
             touchEndX = e.changedTouches[0].screenX;
-            touchEndY = e.changedTouches[0].screenY;
             handleSwipe(slider.id);
         }, { passive: true });
         
         function handleSwipe(sliderId) {
-            const swipeThreshold = 50; // Minimum distance for swipe
-            const swipeDistanceX = touchEndX - touchStartX;
-            const swipeDistanceY = Math.abs(touchEndY - touchStartY);
+            const swipeThreshold = 50; // minimum distance for swipe
             
-            // Only trigger if horizontal swipe is dominant
-            if (Math.abs(swipeDistanceX) > swipeThreshold && Math.abs(swipeDistanceX) > swipeDistanceY) {
-                if (swipeDistanceX > 0) {
-                    // Swipe right - go to previous
-                    slide(sliderId, -1);
-                } else {
-                    // Swipe left - go to next
-                    slide(sliderId, 1);
-                }
+            if (touchEndX < touchStartX - swipeThreshold) {
+                // Swipe left - next card
+                slide(sliderId, 1);
+            }
+            
+            if (touchEndX > touchStartX + swipeThreshold) {
+                // Swipe right - previous card
+                slide(sliderId, -1);
             }
         }
     });
-}
-
-// Initialize swipe support when DOM is loaded
-window.addEventListener('DOMContentLoaded', function() {
-    addSwipeSupport();
 });
+
 
 // --- FEEDBACK GITHUB REDIRECT LOGIC ---
 const form = document.getElementById('feedbackForm');

@@ -71,6 +71,110 @@ body {
     overflow-x: hidden;
 }
 
+/* Hamburger Menu (Mobile Only) */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 8px;
+    background: transparent;
+    border: none;
+    z-index: 101;
+}
+
+.hamburger span {
+    width: 25px;
+    height: 3px;
+    background: var(--text);
+    margin: 3px 0;
+    border-radius: 2px;
+}
+
+.mobile-nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 99;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.mobile-nav-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.mobile-nav-menu {
+    position: fixed;
+    top: 0;
+    right: -250px;
+    width: 250px;
+    height: 100vh;
+    background: var(--nav-bg);
+    border-left: 1px solid var(--border);
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 0 20px 0;
+    transition: right 0.3s ease;
+    visibility: hidden;
+}
+
+.mobile-nav-menu.active {
+    right: 0;
+    visibility: visible;
+}
+
+.mobile-nav-menu .nav-item {
+    width: 100%;
+    text-align: left;
+    padding: 16px 24px;
+    border-radius: 0;
+    border-bottom: 1px solid var(--border);
+    transition: none !important;
+}
+
+.mobile-nav-menu .nav-item:hover,
+.mobile-nav-menu .nav-item.active {
+    background: var(--btn-hover);
+}
+
+.mobile-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: transparent;
+    border: none;
+    color: var(--text);
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 769px) {
+    .hamburger {
+        display: none !important;
+    }
+    .mobile-nav-overlay {
+        display: none !important;
+    }
+    .mobile-nav-menu {
+        display: none !important;
+    }
+    .nav-links {
+        display: flex !important;
+    }
+}
+
 .logo {
     font-size: 1.5rem;
     font-weight: 700;
@@ -504,28 +608,25 @@ footer a:hover { text-decoration: underline; }
         padding: 12px 16px;
     }
 
-    .logo {
-        font-size: 1.3rem;
-        margin-right: 20px;
+    .hamburger {
+        display: flex;
+        order: 3;
     }
 
     .nav-links {
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-    }
-
-    .nav-links::-webkit-scrollbar {
         display: none;
-    }
-
-    .nav-item {
-        font-size: 0.85rem;
-        padding: 6px 12px;
     }
 
     .theme-toggle {
         font-size: 0.85rem;
         padding: 6px 12px;
+        order: 2;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+        margin-right: auto;
+        order: 1;
     }
 
     .container {
@@ -848,7 +949,24 @@ footer a:hover { text-decoration: underline; }
         </div>
     </div>
     <button class="theme-toggle" onclick="toggleTheme()">🌓 Theme</button>
+    <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
 </nav>
+
+<!-- Mobile Menu Overlay -->
+<div class="mobile-nav-overlay" id="mobileNavOverlay" onclick="closeMobileMenu()"></div>
+
+<!-- Mobile Navigation Menu -->
+<div class="mobile-nav-menu" id="mobileNavMenu">
+    <button class="mobile-close" onclick="closeMobileMenu()" aria-label="Close">&times;</button>
+    <button class="nav-item active" onclick="switchViewMobile('home')" id="mobile-nav-home">Home</button>
+    <button class="nav-item" onclick="switchViewMobile('projects')" id="mobile-nav-projects">All Projects</button>
+    <button class="nav-item" onclick="switchViewMobile('feedback')" id="mobile-nav-feedback">Feedbacks & Reports</button>
+    <button class="nav-item" onclick="switchViewMobile('about')" id="mobile-nav-about">About Developer</button>
+</div>
 
 <div class="container">
 
@@ -1407,6 +1525,53 @@ footer a:hover { text-decoration: underline; }
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// --- MOBILE MENU FUNCTIONS ---
+function toggleMobileMenu() {
+    const menu = document.getElementById('mobileNavMenu');
+    const overlay = document.getElementById('mobileNavOverlay');
+    
+    menu.classList.toggle('active');
+    overlay.classList.toggle('active');
+    
+    // Prevent body scroll when menu is open
+    if (menu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+    } else {
+        document.body.style.overflow = '';
+    }
+}
+
+function closeMobileMenu() {
+    const menu = document.getElementById('mobileNavMenu');
+    const overlay = document.getElementById('mobileNavOverlay');
+    menu.classList.remove('active');
+    overlay.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function switchViewMobile(viewName) {
+    switchView(viewName);
+    closeMobileMenu();
+    
+    // Update mobile nav active states
+    const mobileNavItems = ['home', 'projects', 'feedback', 'about'];
+    mobileNavItems.forEach(v => {
+        const mobileNav = document.getElementById('mobile-nav-' + v);
+        if (v === viewName) {
+            mobileNav.classList.add('active');
+        } else {
+            mobileNav.classList.remove('active');
+        }
+    });
+}
+
+// Close mobile menu with ESC key
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeMobileMenu();
+    }
+});
+
 // --- VIEW SWITCHING LOGIC WITH URL ROUTING ---
 function switchView(viewName) {
     const views = ['home', 'projects', 'feedback', 'about'];
@@ -1414,13 +1579,16 @@ function switchView(viewName) {
     views.forEach(v => {
         const section = document.getElementById(v + '-view');
         const nav = document.getElementById('nav-' + v);
+        const mobileNav = document.getElementById('mobile-nav-' + v);
         
         if (v === viewName) {
             section.classList.add('active-view');
             nav.classList.add('active');
+            if (mobileNav) mobileNav.classList.add('active');
         } else {
             section.classList.remove('active-view');
             nav.classList.remove('active');
+            if (mobileNav) mobileNav.classList.remove('active');
         }
     });
 
@@ -1461,13 +1629,16 @@ function handleRouting() {
     views.forEach(v => {
         const section = document.getElementById(v + '-view');
         const nav = document.getElementById('nav-' + v);
+        const mobileNav = document.getElementById('mobile-nav-' + v);
         
         if (v === viewName) {
             section.classList.add('active-view');
             nav.classList.add('active');
+            if (mobileNav) mobileNav.classList.add('active');
         } else {
             section.classList.remove('active-view');
             nav.classList.remove('active');
+            if (mobileNav) mobileNav.classList.remove('active');
         }
     });
     

@@ -6,6 +6,12 @@
 <title>OZLER – Projects & Feedback</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%2324292f'/%3E%3Cpath d='M16 8a8 8 0 1 0 0 16 8 8 0 0 0 0-16z' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E" type="image/svg+xml">
 
+<!-- AGGRESSIVE PRELOADING TO PREVENT BACKGROUND BLINKING/DELAY -->
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop">
+<link rel="preload" as="image" href="https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=2070&auto=format&fit=crop">
+
 <style>
 /* --- CALMING PROFESSIONAL THEME VARIABLES --- */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -25,7 +31,7 @@
     box-sizing: border-box;
 }
 
-/* Highly targeted transitions for performance (replaces global * selector) */
+/* Highly targeted transitions for performance */
 a, button, .nav-item, .action-btn, .feedback-btn, .card, .star, .slider-btn {
     transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
@@ -44,8 +50,8 @@ body {
     display: flex;
     flex-direction: column;
     
-    /* Default background (Overview) mapped to local image */
-    background-image: url('images/home-bg.jpg');
+    /* Default background (Overview) */
+    background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -64,7 +70,7 @@ body {
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     z-index: -1;
-    will-change: transform; /* Hint to browser for GPU rendering */
+    will-change: transform; 
 }
 
 /* Custom Scrollbar */
@@ -244,7 +250,7 @@ button { font-family: inherit; }
     flex: 1;
     width: 100%;
     position: relative;
-    z-index: 2;
+    z-index: 2; 
 }
 
 /* --- VIEW UTILITY --- */
@@ -334,7 +340,6 @@ button { font-family: inherit; }
     margin-top: 8px;
 }
 
-/* Make primary call to action slightly more prominent */
 .action-btn:first-child {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.5);
@@ -397,6 +402,11 @@ button { font-family: inherit; }
 .slider .card.active {
     display: flex;
     animation: fadeSlideIn 0.3s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .slider-btn {
@@ -497,7 +507,7 @@ button { font-family: inherit; }
 
 .section-notice {
     color: var(--text-main);
-    padding: 16px 24px;
+    padding: 16px 0;
     margin-bottom: 40px;
     font-size: 1.05rem;
     display: flex;
@@ -506,6 +516,7 @@ button { font-family: inherit; }
     background: rgba(255, 204, 0, 0.1);
     border: 1px solid rgba(255, 204, 0, 0.3);
     border-radius: var(--radius);
+    padding: 16px 24px;
     backdrop-filter: blur(8px);
 }
 
@@ -543,11 +554,10 @@ select, textarea, input {
     font-family: 'Inter', sans-serif;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    transition: all 0.3s ease;
 }
 
 select option { 
-    background: #1a1a1a; 
+    background: #0d1117; 
     color: #fff; 
 }
 
@@ -612,7 +622,6 @@ select:focus, textarea:focus, input:focus {
     font-size: 1.05rem;
     font-weight: 500;
     padding: 4px 8px;
-    transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .social-links a:hover {
@@ -799,7 +808,6 @@ footer a:hover { color: var(--text-header); }
                             </div>
                         </div>
 
-                        <!-- Maintained scripts structured efficiently -->
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://global.manga-up.com/assets/icon.webp" alt="Icon" class="card-icon">
@@ -1255,10 +1263,10 @@ footer a:hover { color: var(--text-header); }
 <script>
 // --- GLOBAL VARS & CONFIG ---
 const sectionBackgrounds = {
-    'home': 'images/home-bg.jpg',
-    'projects': 'images/projects-bg.jpg',
-    'feedback': 'images/feedback-bg.jpg',
-    'about': 'images/about-bg.jpg'
+    'home': 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop',
+    'projects': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop',
+    'feedback': 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop',
+    'about': 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=2070&auto=format&fit=crop'
 };
 
 const extensionURLs = {
@@ -1289,19 +1297,11 @@ let selectedRating = 0;
 // --- INITIALIZATION BLOCK (Merged for Performance) ---
 document.addEventListener('DOMContentLoaded', function() {
     
-    // 1. Preload Backgrounds (Offloaded)
-    window.addEventListener('load', () => {
-        Object.values(sectionBackgrounds).forEach(url => {
-            const img = new Image();
-            img.src = url;
-        });
-    });
-
-    // 2. Routing Setup
+    // 1. Routing Setup
     handleRouting();
     window.addEventListener('hashchange', handleRouting);
 
-    // 3. Slider Swipe Events (Passive)
+    // 2. Slider Swipe Events (Passive)
     document.querySelectorAll('.slider').forEach(slider => {
         let touchStartX = 0;
         let touchEndX = 0;
@@ -1313,7 +1313,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: true });
     });
 
-    // 4. Star Rating Logic
+    // 3. Star Rating Logic
     const stars = document.querySelectorAll('.star');
     const starRating = document.getElementById('starRating');
     
@@ -1337,7 +1337,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (starRating) starRating.addEventListener('mouseleave', () => updateStars(selectedRating));
     }
 
-    // 5. Feedback Form UI Logic
+    // 4. Feedback Form UI Logic
     const repoSelect = document.getElementById('repoSelect');
     const ffGfBtn = document.getElementById('firefoxGreasyforkBtn');
     const edgeBtn = document.getElementById('edgeBtn');

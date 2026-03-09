@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
@@ -7,54 +7,18 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%2324292f'/%3E%3Cpath d='M16 8a8 8 0 1 0 0 16 8 8 0 0 0 0-16z' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E" type="image/svg+xml">
 
 <style>
-/* --- GITHUB PRIMER THEME VARIABLES --- */
-:root {
-    /* Light Mode (Default) */
-    --bg-body: #ffffff;
-    --bg-card: #ffffff;
-    --bg-header: #24292f; /* Classic GitHub Header Dark */
-    --bg-input: #f6f8fa;
-    --bg-btn: #f6f8fa;
-    --bg-btn-hover: #f3f4f6;
-    
-    --text-main: #24292f;
-    --text-muted: #57606a;
-    --text-header: #ffffff;
-    --text-link: #0969da;
-    
-    --border: #d0d7de;
-    --border-btn: rgba(27, 31, 35, 0.15);
-    
-    --primary: #2da44e; /* GitHub Green */
-    --primary-hover: #2c974b;
-    --accent: #0969da; /* GitHub Blue */
-    
-    --shadow-sm: 0 1px 0 rgba(27, 31, 35, 0.04);
-    --radius: 6px;
-}
+/* --- CALMING PROFESSIONAL THEME VARIABLES --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
-[data-theme="dark"] {
-    /* Dark Mode */
-    --bg-body: #0d1117;
-    --bg-card: #0d1117; /* Transparent/Matches body in dark mode mostly, or slight offset */
-    --bg-header: #161b22;
-    --bg-input: #0d1117;
-    --bg-btn: #21262d;
-    --bg-btn-hover: #30363d;
+:root {
+    --text-main: #f8f9fa;
+    --text-muted: #ced4da;
+    --text-header: #ffffff;
     
-    --text-main: #c9d1d9;
-    --text-muted: #8b949e;
-    --text-header: #f0f6fc;
-    --text-link: #58a6ff;
+    --primary: #ffffff; 
+    --primary-hover: #e9ecef;
     
-    --border: #30363d;
-    --border-btn: #363b42;
-    
-    --primary: #238636;
-    --primary-hover: #2ea043;
-    --accent: #58a6ff;
-    
-    --shadow-sm: none;
+    --radius: 12px; /* Smooth, professional rounding */
 }
 
 /* --- RESET & BASE --- */
@@ -62,7 +26,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: background-color 0.2s cubic-bezier(0.3, 0, 0.5, 1), border-color 0.2s;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 html {
@@ -70,89 +34,125 @@ html {
 }
 
 body {
-    background: var(--bg-body);
+    background-color: #0d1117;
     color: var(--text-main);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
-    line-height: 1.5;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
     overflow-x: hidden;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    
+    /* Default background (Overview) */
+    background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    transition: background-image 0.8s ease-in-out;
 }
 
-a { text-decoration: none; color: var(--text-link); }
-a:hover { text-decoration: underline; }
+/* Reduced Blur Overlay */
+#bg-blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(15, 17, 21, 0.55); /* Lighter dark wash to see image */
+    backdrop-filter: blur(6px); /* Reduced blur */
+    -webkit-backdrop-filter: blur(6px);
+    z-index: -1;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.3);
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.6);
+}
+
+::selection {
+    background: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+a { text-decoration: none; color: var(--primary); }
 
 button { font-family: inherit; }
 
-/* --- NAVBAR (GitHub Header Style) --- */
+/* Text Readability Shadow */
+.text-shadow-layer {
+    text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 1px 3px rgba(0,0,0,0.6);
+}
+
+/* --- NAVBAR --- */
 .navbar {
-    background: var(--bg-header);
-    padding: 16px 24px;
+    background: transparent;
+    padding: 24px 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     position: sticky;
     top: 0;
     z-index: 1000;
-    color: var(--text-header);
 }
 
 .logo {
-    font-size: 1.1rem;
-    font-weight: 600;
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--text-header);
-    margin-right: 24px;
+    margin-right: 32px;
     white-space: nowrap;
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
+    letter-spacing: 1px;
 }
-/* GitHub Cat Icon Simulation */
+
+/* Clean Minimal Logo Mark */
 .logo::before {
     content: '';
     display: inline-block;
     width: 24px;
     height: 24px;
-    background-color: var(--text-header);
-    mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'/%3E%3C/svg%3E") no-repeat center;
-    -webkit-mask: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z'/%3E%3C/svg%3E") no-repeat center;
+    background: var(--primary);
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'%3E%3C/polygon%3E%3Cpolyline points='2 17 12 22 22 17'%3E%3C/polyline%3E%3Cpolyline points='2 12 12 17 22 12'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center;
+    -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolygon points='12 2 2 7 12 12 22 7 12 2'%3E%3C/polygon%3E%3Cpolyline points='2 17 12 22 22 17'%3E%3C/polyline%3E%3Cpolyline points='2 12 12 17 22 12'%3E%3C/polyline%3E%3C/svg%3E") no-repeat center;
 }
 
 .nav-links {
     display: flex;
-    gap: 8px;
+    gap: 12px;
     align-items: center;
 }
 
 .nav-item {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 0.9rem;
-    font-weight: 600;
-    cursor: pointer;
-    padding: 6px 12px;
-    border-radius: 6px;
-    transition: color 0.2s;
-}
-
-.nav-item:hover { color: #ffffff; }
-.nav-item.active { color: #ffffff; font-weight: 700; }
-
-.theme-toggle {
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    padding: 4px 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    color: var(--text-header);
-    font-size: 0.85rem;
+    color: var(--text-muted);
+    font-size: 1rem;
     font-weight: 500;
+    cursor: pointer;
+    padding: 8px 16px;
+    border-radius: var(--radius);
+    position: relative;
+    letter-spacing: 0.3px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.8);
 }
 
-.theme-toggle:hover {
-    border-color: #ffffff;
+.nav-item:hover, .nav-item.active { 
+    color: var(--text-header);
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
 }
 
 /* --- HAMBURGER & MOBILE --- */
@@ -162,15 +162,16 @@ button { font-family: inherit; }
     cursor: pointer;
     background: transparent;
     border: none;
-    gap: 5px;
-    padding: 5px;
+    gap: 6px;
+    padding: 6px;
 }
 
 .hamburger span {
-    width: 22px;
+    width: 24px;
     height: 2px;
     background: var(--text-header);
     border-radius: 2px;
+    transition: 0.3s;
 }
 
 .mobile-nav-overlay {
@@ -179,11 +180,11 @@ button { font-family: inherit; }
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px);
     z-index: 998;
     opacity: 0;
     visibility: hidden;
-    transition: all 0.2s ease;
 }
 
 .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
@@ -191,16 +192,17 @@ button { font-family: inherit; }
 .mobile-nav-menu {
     position: fixed;
     top: 0;
-    right: -300px;
-    width: 300px;
+    right: -320px;
+    width: 320px;
     height: 100vh;
-    background: var(--bg-body);
-    border-left: 1px solid var(--border);
+    background: rgba(20, 20, 25, 0.85);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: -10px 0 40px rgba(0,0,0,0.8);
     z-index: 999;
     display: flex;
     flex-direction: column;
-    padding: 60px 20px 20px;
-    transition: right 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    padding: 80px 24px 24px;
     visibility: hidden;
 }
 
@@ -209,23 +211,21 @@ button { font-family: inherit; }
 .mobile-nav-menu .nav-item {
     width: 100%;
     text-align: left;
-    padding: 12px 0;
-    color: var(--text-main);
-    border-radius: 0;
-    border-bottom: 1px solid var(--border);
+    padding: 16px;
+    margin-bottom: 8px;
 }
-.mobile-nav-menu .nav-item:hover { color: var(--accent); }
 
 .mobile-close {
     position: absolute;
-    top: 20px;
-    right: 20px;
+    top: 24px;
+    right: 24px;
     background: transparent;
     border: none;
     color: var(--text-muted);
-    font-size: 1.5rem;
+    font-size: 2rem;
     cursor: pointer;
 }
+.mobile-close:hover { color: var(--text-header); transform: scale(1.1); }
 
 @media (max-width: 768px) {
     .hamburger { display: flex; }
@@ -234,103 +234,118 @@ button { font-family: inherit; }
 
 /* --- MAIN CONTAINER --- */
 .container {
-    max-width: 1012px; /* GitHub Container width */
+    max-width: 1080px;
     margin: 0 auto;
-    padding: 32px 24px;
+    padding: 60px 24px;
     flex: 1;
     width: 100%;
+    position: relative;
+    z-index: 2; /* Sit above the blur */
 }
 
 /* --- VIEW UTILITY --- */
-.view-section { display: none; }
+.view-section { display: none; animation: fadeIn 0.5s ease-in-out; }
 .view-section.active-view { display: block; }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
 
 /* --- HEADERS --- */
 .page-header {
-    margin-bottom: 32px;
-    padding-bottom: 24px;
-    border-bottom: 1px solid var(--border);
+    margin-bottom: 60px;
+    text-align: center;
 }
 
 .page-header h1 {
-    font-size: 2rem;
-    font-weight: 500;
-    color: var(--text-main);
-    margin-bottom: 8px;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-header);
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
 }
 
 .page-header p {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: var(--text-muted);
+    font-weight: 400;
 }
 
-/* --- ACTION SECTION (Readme style) --- */
+/* --- ACTION SECTION --- */
 .action-section {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px;
-    margin-bottom: 32px;
+    padding: 20px 0;
+    margin-bottom: 60px;
     text-align: center;
 }
 
 .action-section h3 {
-    font-size: 1.25rem;
-    margin-bottom: 8px;
+    font-size: 1.5rem;
+    margin-bottom: 16px;
     font-weight: 600;
+    color: var(--text-header);
 }
 
 .action-section p {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--text-muted);
-    margin-bottom: 24px;
+    margin-bottom: 32px;
 }
 
 .btn-group {
     display: flex;
     justify-content: center;
-    gap: 8px;
+    gap: 16px;
     flex-wrap: wrap;
 }
 
-.action-btn {
-    background: var(--bg-btn);
-    color: var(--text-main);
-    padding: 5px 16px;
-    border: 1px solid var(--border-btn);
+/* Sleek Transparent Buttons */
+.action-btn, .feedback-btn {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-header);
+    padding: 14px 32px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: var(--radius);
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 500;
     cursor: pointer;
-    font-size: 14px;
-    line-height: 20px;
-    box-shadow: var(--shadow-sm);
+    font-size: 0.95rem;
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    transition: all 0.3s ease;
 }
 
-.action-btn:hover {
-    background: var(--bg-btn-hover);
-    border-color: var(--border-btn);
-    text-decoration: none;
+.action-btn:hover, .feedback-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
-/* Primary Button (Donate) - Green like "New Issue" or "Code" */
+.feedback-btn {
+    width: 100%;
+    margin-top: 8px;
+}
+
+/* Make primary call to action slightly more prominent */
 .action-btn:first-child {
-    background: var(--primary);
-    color: #ffffff;
-    border-color: rgba(27, 31, 35, 0.15);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
 }
 .action-btn:first-child:hover {
-    background: var(--primary-hover);
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.8);
 }
 
 /* --- PROJECTS GRID & SLIDERS --- */
 .content-grid {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 60px;
 }
 
 @media (min-width: 1024px) {
@@ -346,106 +361,100 @@ button { font-family: inherit; }
 }
 
 .section-title {
-    font-size: 1rem;
+    font-size: 1.35rem;
     font-weight: 600;
-    margin-bottom: 16px;
-    color: var(--text-main);
+    margin-bottom: 24px;
+    color: var(--text-header);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
 .slider-wrapper {
     position: relative;
-    padding: 0 30px;
+    padding: 0 40px;
 }
 
 .slider {
     display: flex;
     justify-content: center;
     overflow: hidden;
-    min-height: 300px; 
+    min-height: 260px; 
 }
 
 .slider .card {
     display: none;
     width: 100%;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 10px 0; 
 }
 
 .slider .card.active {
     display: flex;
+    animation: fadeSlideIn 0.4s ease forwards;
+}
+
+@keyframes fadeSlideIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
 }
 
 .slider-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 28px;
-    height: 28px;
+    width: 40px;
+    height: 40px;
     background: transparent;
     color: var(--text-muted);
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     cursor: pointer;
     z-index: 10;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
-    border-radius: 4px;
 }
 
 .slider-btn:hover {
-    background: var(--bg-btn-hover);
-    color: var(--accent);
+    color: var(--text-header);
+    transform: translateY(-50%) scale(1.1);
 }
 
-.slider-btn.prev { left: -5px; }
-.slider-btn.next { right: -5px; }
+.slider-btn.prev { left: -10px; }
+.slider-btn.next { right: -10px; }
 
-/* --- CARDS (Repo Style) --- */
-.card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 16px;
-    flex-direction: column;
-    height: 100%;
-    margin: 0 auto;
-    align-items: flex-start; /* Left align like repos */
-    text-align: left;
-}
-
-.card:hover {
-    border-color: var(--text-muted); /* Darker grey on hover */
-}
-
+/* --- CARDS CONTENT (Floating) --- */
 .card-header {
     display: flex;
     align-items: center;
-    gap: 10px;
-    margin-bottom: 8px;
+    gap: 16px;
+    margin-bottom: 16px;
     width: 100%;
 }
 
 .card-icon {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%; /* Circle icon */
+    width: 48px;
+    height: 48px;
+    border-radius: 8px;
     object-fit: cover;
-    border: 1px solid var(--border);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.6);
 }
 
 .card h3 {
-    color: var(--accent);
-    font-size: 14px;
+    color: var(--text-header);
+    font-size: 1.3rem;
     font-weight: 600;
-    cursor: pointer;
     flex: 1;
 }
-.card h3:hover { text-decoration: underline; }
 
 .card .description {
-    font-size: 12px;
+    font-size: 1.05rem;
     color: var(--text-muted);
-    line-height: 1.5;
-    margin-bottom: 16px;
+    line-height: 1.6;
+    margin-bottom: 24px;
     width: 100%;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -456,198 +465,193 @@ button { font-family: inherit; }
 .card .links {
     margin-top: auto;
     width: 100%;
-    border-top: 1px solid var(--border);
-    padding-top: 12px;
-}
-
-.card .links-label {
-    display: none; /* Hide label for cleaner look */
+    padding-top: 16px;
 }
 
 .card .links-container {
     display: flex;
-    gap: 8px;
+    gap: 12px;
+    flex-wrap: wrap;
 }
 
 .card a {
-    color: var(--text-main);
+    color: var(--text-header);
     text-decoration: none;
-    font-size: 12px;
-    padding: 3px 10px;
-    background: var(--bg-btn);
-    border: 1px solid var(--border-btn);
-    border-radius: 2em; /* Pill shape */
+    font-size: 0.9rem;
+    padding: 10px 18px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     font-weight: 500;
+    backdrop-filter: blur(4px);
 }
 
 .card a:hover {
-    background: var(--bg-btn-hover);
-    color: var(--accent);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-2px);
 }
 
-.link-icon { width: 14px; height: 14px; object-fit: contain; }
+.link-icon { width: 16px; height: 16px; object-fit: contain; }
 
 .section-notice {
-    background: rgba(210, 153, 34, 0.15); /* Warning/Yellow tint */
-    border: 1px solid rgba(210, 153, 34, 0.4);
     color: var(--text-main);
-    padding: 16px;
+    padding: 16px 0;
+    margin-bottom: 40px;
+    font-size: 1.05rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 204, 0, 0.1);
+    border: 1px solid rgba(255, 204, 0, 0.3);
     border-radius: var(--radius);
-    margin-bottom: 32px;
-    font-size: 13px;
-    border-left: 4px solid #d29922; /* Yellow left border */
+    padding: 16px 24px;
+    backdrop-filter: blur(8px);
 }
 
-/* --- FEEDBACK FORM (Issue Style) --- */
-.feedback-wrapper { max-width: 100%; margin: 0 auto; }
+.section-notice strong { color: #ffcc00; }
+
+/* --- FEEDBACK FORM (Transparent floating inputs) --- */
+.feedback-wrapper { 
+    max-width: 700px; 
+    margin: 0 auto; 
+}
 
 .feedback-section {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 0; /* Header separates content */
+    padding: 20px 0;
 }
 
-.form-group { padding: 16px; border-bottom: 1px solid var(--border); }
-.form-group:last-child { border-bottom: none; }
+.form-group { padding: 16px 0; }
 
 label {
     display: block;
-    margin-bottom: 8px;
-    color: var(--text-main);
-    font-weight: 600;
-    font-size: 14px;
+    margin-bottom: 12px;
+    color: var(--text-header);
+    font-weight: 500;
+    font-size: 1rem;
 }
 
 select, textarea, input {
     width: 100%;
-    padding: 5px 12px;
-    background: var(--bg-input);
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    color: var(--text-main);
-    font-size: 14px;
-    line-height: 20px;
+    padding: 14px 16px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius);
+    color: var(--text-header);
+    font-size: 1rem;
+    line-height: 1.5;
+    font-family: 'Inter', sans-serif;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Ensure options in select drop-down are visible */
+select option { 
+    background: #0d1117; 
+    color: #fff; 
 }
 
 select:focus, textarea:focus, input:focus {
     outline: none;
-    border-color: var(--accent);
-    box-shadow: 0 0 0 3px rgba(9, 105, 218, 0.3);
+    border-color: rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.1); 
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1); 
 }
 
 /* Star Rating */
 .star-rating {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 12px;
 }
 .star {
-    font-size: 20px;
+    font-size: 32px;
     cursor: pointer;
-    color: var(--border);
+    color: rgba(255,255,255,0.2);
 }
-.star.active, .star:hover { color: #e3b341; } /* GitHub Star Yellow */
-
-.feedback-btn {
-    width: 100%;
-    padding: 6px 16px;
-    background: #2da44e; /* GitHub Green */
-    color: #ffffff;
-    border: 1px solid rgba(27, 31, 35, 0.15);
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 600;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    margin-top: 16px;
+.star.active, .star:hover { 
+    color: #ffcc00; 
+    text-shadow: 0 0 15px rgba(255, 204, 0, 0.5);
+    transform: scale(1.1);
 }
-
-.feedback-btn:hover { background: #2c974b; }
-
-.github-icon { width: 16px; height: 16px; fill: currentColor; }
 
 .note {
-    margin-top: 16px;
-    font-size: 12px;
+    margin-top: 24px;
+    font-size: 0.95rem;
     color: var(--text-muted);
-    padding: 0 16px 16px 16px;
+    line-height: 1.6;
 }
 
 /* --- ABOUT SECTION --- */
 .about-container {
     max-width: 800px;
     margin: 0 auto;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 32px;
-    background: var(--bg-card);
+    padding: 20px 0;
 }
 
 .about-text {
-    font-size: 14px;
+    font-size: 1.15rem;
     color: var(--text-main);
-    margin-bottom: 24px;
+    margin-bottom: 40px;
 }
-.about-text p { margin-bottom: 16px; }
+.about-text p { margin-bottom: 24px; }
 
 /* --- SOCIAL LINKS --- */
 .social-links {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: wrap; /* Allows wrapping on tiny screens, but attempts inline */
     justify-content: center;
-    gap: 8px;
-    padding: 20px 0;
+    align-items: center;
+    gap: 20px;
+    padding: 40px 0;
 }
 
 .social-links a {
-    color: var(--text-main);
+    color: var(--text-muted);
     text-decoration: none;
-    padding: 4px 12px;
-    background: var(--bg-btn);
-    border: 1px solid var(--border-btn);
-    border-radius: 6px;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-weight: 600;
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 4px 8px;
 }
 
 .social-links a:hover {
-    background: var(--bg-btn-hover);
-    color: var(--accent);
+    color: var(--text-header);
+    transform: translateY(-2px);
+    text-shadow: 0 2px 8px rgba(255,255,255,0.4);
 }
 
 /* --- FOOTER --- */
 footer {
     text-align: center;
-    padding: 40px;
+    padding: 40px 24px;
     color: var(--text-muted);
-    font-size: 12px;
-    border-top: 1px solid var(--border);
-    margin-top: 40px;
+    font-size: 0.95rem;
+    background: transparent;
 }
-footer a { color: var(--accent); }
+footer a { font-weight: 500; text-decoration: underline; color: var(--text-muted); }
+footer a:hover { color: var(--text-header); }
 
 /* --- RESPONSIVE TWEAKS --- */
 @media (max-width: 600px) {
-    .container { padding: 20px 16px; }
-    .page-header h1 { font-size: 1.5rem; }
-    .card { height: auto; min-height: auto; }
-    .slider { min-height: 280px; }
-    .action-btn { width: 100%; margin-bottom: 5px; }
-    .btn-group { flex-direction: column; }
+    .container { padding: 32px 16px; }
+    .page-header h1 { font-size: 2.2rem; }
+    .slider { min-height: 320px; }
+    .slider-wrapper { padding: 0 30px; }
+    .action-btn, .feedback-btn { width: 100%; }
+    .btn-group { flex-direction: column; width: 100%; }
 }
 </style>
 </head>
 <body>
+
+<!-- GLOBAL BLUR OVERLAY -->
+<div id="bg-blur-overlay"></div>
+
+<!-- HIDDEN YOUTUBE AUDIO PLAYER -->
+<div id="audio-player" style="display:none;"></div>
 
 <nav class="navbar">
     <div style="display: flex; align-items: center;">
@@ -659,8 +663,7 @@ footer a { color: var(--accent); }
             <button class="nav-item" onclick="switchView('about')" id="nav-about">About Us</button>
         </div>
     </div>
-    <div style="display: flex; align-items: center; gap: 10px;">
-        <button class="theme-toggle" onclick="toggleTheme()">Appearance</button>
+    <div style="display: flex; align-items: center; gap: 16px;">
         <button class="hamburger" onclick="toggleMobileMenu()" aria-label="Menu">
             <span></span>
             <span></span>
@@ -679,12 +682,13 @@ footer a { color: var(--accent); }
     <button class="nav-item" onclick="switchViewMobile('about')" id="mobile-nav-about">About Us</button>
 </div>
 
-<div class="container">
+<div class="container text-shadow-layer">
 
+    <!-- OVERVIEW VIEW -->
     <div id="home-view" class="view-section active-view">
         <header class="page-header">
             <h1>Thank You For Installing</h1>
-            <p>A collection of useful tools for improved web experience.</p>
+            <p>A collection of useful tools for an improved web experience.</p>
         </header>
 
         <section class="action-section">
@@ -693,20 +697,19 @@ footer a { color: var(--accent); }
             
             <div class="btn-group">
                 <a href="https://buymeacoffee.com/ozler" target="_blank" class="action-btn">
-                    <svg viewBox="0 0 16 16" width="16" height="16" style="margin-right:6px; fill:currentColor"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
+                    <svg viewBox="0 0 16 16" width="18" height="18" style="margin-right:10px; fill:currentColor"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
                     Donate
                 </a>
                 <button onclick="switchView('feedback')" class="action-btn">
-                    <svg viewBox="0 0 16 16" width="16" height="16" style="margin-right:6px; fill:currentColor"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
                     Leave Feedback
                 </button>
                 <button onclick="switchView('projects')" class="action-btn">
-                    <svg viewBox="0 0 16 16" width="16" height="16" style="margin-right:6px; fill:currentColor"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
                     View Projects
                 </button>
             </div>
         </section>
 
+        <!-- Social Links single line -->
         <div class="social-links">
             <a href="mailto:devjk6918@gmail.com">Email</a>
             <a href="https://github.com/OZLER365" target="_blank">GitHub</a>
@@ -718,9 +721,10 @@ footer a { color: var(--accent); }
             <a href="https://discord.gg/CJ2GA8vqd" target="_blank">Discord</a>
             <a href="https://t.me/Ozler365" target="_blank">Telegram</a>
             <a href="https://www.threads.com/@weebtopiaofficial" target="_blank">Threads</a>
-            </div>
+        </div>
     </div>
 
+    <!-- PROJECTS VIEW -->
     <div id="projects-view" class="view-section">
         <header class="page-header">
             <h1>Projects</h1>
@@ -728,8 +732,8 @@ footer a { color: var(--accent); }
         </header>
 
         <div class="section-notice">
-            <svg viewBox="0 0 16 16" width="16" height="16" style="vertical-align:text-bottom; margin-right:6px; fill:currentColor"><path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg>
-            <strong>Note:</strong> Please read all instructions on how to use these userscripts and extension before installing.
+            <svg viewBox="0 0 16 16" width="20" height="20" style="fill:currentColor"><path fill-rule="evenodd" d="M8.22 1.754a.25.25 0 00-.44 0L1.698 13.132a.25.25 0 00.22.368h12.164a.25.25 0 00.22-.368L8.22 1.754zm-1.763-.707c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0114.082 15H1.918a1.75 1.75 0 01-1.543-2.575L6.457 1.047zM9 11a1 1 0 11-2 0 1 1 0 012 0zm-.25-5.25a.75.75 0 00-1.5 0v2.5a.75.75 0 001.5 0v-2.5z"></path></svg>
+            <strong>Note:</strong> Please read all instructions on how to use these userscripts and extensions before installing.
         </div>
 
         <div class="content-grid">
@@ -748,14 +752,20 @@ footer a { color: var(--accent); }
                                 Firefox extension. Downloads images from most sites. Supports zip, subfolders, and auto-descrambling.
                             </p>
                             <div class="links">
-                                <a href="https://addons.mozilla.org/en-US/firefox/addon/universal-image-downloader/" target="_blank">
-                                    <img src="https://www.mozilla.org/media/protocol/img/logos/firefox/browser/logo.eb1324e44442.svg" alt="Firefox" class="link-icon">
-                                    Firefox
-                                </a>
-                                <a href="https://github.com/OZLER365/Image-Downloader-Extension-Firefox" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://microsoftedge.microsoft.com/addons/detail/universal-image-downloade/dmendeegjofenpfmgfipnnalebefonhd" target="_blank">
+                                        <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" alt="Edge" class="link-icon">
+                                        Edge
+                                    </a>
+                                    <a href="https://addons.mozilla.org/en-US/firefox/addon/universal-image-downloader/" target="_blank">
+                                        <img src="https://www.mozilla.org/media/protocol/img/logos/firefox/browser/logo.eb1324e44442.svg" alt="Firefox" class="link-icon">
+                                        Firefox
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Image-Downloader-Extension-Firefox" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -778,14 +788,16 @@ footer a { color: var(--accent); }
                                 Requires Tampermonkey. Downloads images from various sites with auto-descrambling support.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/561884-universal-image-downloader" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Image-Downloader-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/561884-universal-image-downloader" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Image-Downloader-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -798,14 +810,16 @@ footer a { color: var(--accent); }
                                 Download high-quality chapter images specifically from Manga-UP. Requires Tampermonkey.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/560442-manga-up-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Manga-UP-Chapter-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/560442-manga-up-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Manga-UP-Chapter-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -818,14 +832,16 @@ footer a { color: var(--accent); }
                                 Optimized for MangaPlaza. Downloads chapters directly. Requires Tampermonkey/Violentmonkey.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/560991-mangaplaza-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Manga-Plaza-Chapter-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/560991-mangaplaza-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Manga-Plaza-Chapter-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -838,14 +854,16 @@ footer a { color: var(--accent); }
                                 Specialized downloader for Manta Comics. Ensures correct image ordering.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/562775-manta-comic-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Manta-Comic-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/562775-manta-comic-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Manta-Comic-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -858,14 +876,16 @@ footer a { color: var(--accent); }
                                 Extracts and downloads chapters from Tappytoon. Easy to use with Tampermonkey.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/562783-tappytoon-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Tappytoon-Chapter-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/562783-tappytoon-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Tappytoon-Chapter-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -878,14 +898,16 @@ footer a { color: var(--accent); }
                                 Dedicated tool for downloading from WebComics. Fast and reliable execution.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/562787-webcomics-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/WebComics-Chapter-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/562787-webcomics-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/WebComics-Chapter-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -898,14 +920,16 @@ footer a { color: var(--accent); }
                                 Downloads comic chapters from Webnovel. Simple interface and effective scraping.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/562799-webnovel-comic-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Webnovel-Comic-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/562799-webnovel-comic-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Webnovel-Comic-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -918,14 +942,16 @@ footer a { color: var(--accent); }
                                 Tailored for Ridibooks. Handles chapter structure efficiently.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/562807-ridibooks-comic-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Ridibooks-Chapter-Downloader-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/562807-ridibooks-comic-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Ridibooks-Chapter-Downloader-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -938,14 +964,16 @@ footer a { color: var(--accent); }
                                 Downloads from Omoi/Azuki. Keeps original quality and formatting.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/562914-omoi-azuki-chapter-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Omoi-Azuki-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/562914-omoi-azuki-chapter-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Omoi-Azuki-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -958,14 +986,16 @@ footer a { color: var(--accent); }
                                 Automated downloader for Comikey chapters. Works best with Tampermonkey.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/562935-comikey-chapter-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Comikey-Chapter-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/562935-comikey-chapter-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Comikey-Chapter-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -978,14 +1008,16 @@ footer a { color: var(--accent); }
                                 Specific tool for Kakao Page. Extract images seamlessly.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/563056-kakao-page-comic-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Kakao-Page-Comic-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/563056-kakao-page-comic-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Kakao-Page-Comic-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -998,14 +1030,16 @@ footer a { color: var(--accent); }
                                 Works for both English and Korean versions of Lezhin. High reliability.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/563063-lezhin-comics-ripper-english-korean" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/Lezhin-Comics-Ripper-Downloader-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/563063-lezhin-comics-ripper-english-korean" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Lezhin-Comics-Ripper-Downloader-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -1018,14 +1052,16 @@ footer a { color: var(--accent); }
                                 Extracts chapters from MangaMirai effortlessly.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/563065-mangamirai-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/MangaMirai-Chapter-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/563065-mangamirai-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/MangaMirai-Chapter-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -1038,14 +1074,16 @@ footer a { color: var(--accent); }
                                 Designed for J-Novel Club. Clean download process for all chapters.
                             </p>
                             <div class="links">
-                                <a href="https://greasyfork.org/en/scripts/565173-j-novel-club-chapter-ripper" target="_blank">
-                                    <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon">
-                                    GreasyFork
-                                </a>
-                                <a href="https://github.com/OZLER365/J-Novel-Club-Chapter-Ripper-Userscript" target="_blank">
-                                    <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
-                                    GitHub
-                                </a>
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/565173-j-novel-club-chapter-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/J-Novel-Club-Chapter-Ripper-Userscript" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
                             </div>
                         </div>
 
@@ -1057,11 +1095,12 @@ footer a { color: var(--accent); }
         </div>
     </div>
 
+    <!-- FEEDBACK VIEW -->
     <div id="feedback-view" class="view-section">
         <div class="feedback-wrapper">
             <header class="page-header">
-                <h1>We are sorry to see you go. Please tell us how we can improve</h1>
-                <p>Submit Your Feedback</p>
+                <h1>We are sorry to see you go.</h1>
+                <p>Please tell us how we can improve.</p>
             </header>
 
             <section class="feedback-section">
@@ -1071,7 +1110,7 @@ footer a { color: var(--accent); }
                         <label for="repoSelect">Which repository is this about?</label>
                         <select id="repoSelect">
                             <option value="" disabled selected>Select an option...</option>
-                            <option value="Image-Downloader-Extension-Firefox">Universal Image Downloader (Firefox Ext)</option>
+                            <option value="Image-Downloader-Extension-Firefox">Universal Image Downloader (Extension)</option>
                             <option value="Image-Downloader-Userscript">Universal Image Downloader (Userscript)</option>
                             <option value="Manga-UP-Chapter-Ripper-Userscript">Manga-UP Ripper</option>
                             <option value="Manga-Plaza-Chapter-Ripper-Userscript">MangaPlaza Ripper</option>
@@ -1100,15 +1139,12 @@ footer a { color: var(--accent); }
 
                     <div class="form-group">
                         <label>Experience Rating</label>
-                        <div class="star-rating">
-                            <div class="stars" id="starRating">
-                                <span class="star" data-value="1">★</span>
-                                <span class="star" data-value="2">★</span>
-                                <span class="star" data-value="3">★</span>
-                                <span class="star" data-value="4">★</span>
-                                <span class="star" data-value="5">★</span>
-                            </div>
-                            <span class="rating-label" id="ratingLabel" style="font-size:12px; color:var(--text-muted);">No rating selected</span>
+                        <div class="star-rating" id="starRating">
+                            <span class="star" data-value="1">★</span>
+                            <span class="star" data-value="2">★</span>
+                            <span class="star" data-value="3">★</span>
+                            <span class="star" data-value="4">★</span>
+                            <span class="star" data-value="5">★</span>
                         </div>
                     </div>
 
@@ -1119,33 +1155,41 @@ footer a { color: var(--accent); }
 
                     <div class="form-group">
                         <label for="feedbackBody">Comment</label>
-                        <textarea id="feedbackBody" rows="5" placeholder="Leave a comment"></textarea>
+                        <textarea id="feedbackBody" rows="4" placeholder="Leave a comment"></textarea>
                     </div>
 
-                    <div style="padding: 16px;">
-                        <button type="button" id="firefoxGreasyforkBtn" class="feedback-btn" style="background: #0969da; display: none;">
-                            <img src="https://blog.mozilla.org/opendesign/files/2018/07/firefox-logo-600x619.png" alt="Firefox" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;">
-                            Login with Firefox Add-ons
+                    <div style="padding: 24px 0; display: flex; flex-direction: column; gap: 16px;">
+                        
+                        <button type="button" id="edgeBtn" class="feedback-btn" style="display: none;">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" alt="Edge" style="width:20px;height:20px;margin-right:8px;">
+                            Login with Edge Add-ons To Post Feedback
+                        </button>
+                        
+                        <button type="button" id="firefoxGreasyforkBtn" class="feedback-btn" style="display: none;">
+                            <img id="ffGfIcon" src="" alt="Icon" style="width:20px;height:20px;margin-right:8px;display:none;">
+                            <span id="ffGfText">Login with Add-ons</span>
                         </button>
 
                         <button type="submit" class="feedback-btn">
+                            <svg class="github-icon" viewBox="0 0 16 16" style="width:20px;height:20px;margin-right:8px;fill:currentColor;"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
                             Login With Github to Post Feedback
                         </button>
                     </div>
                     
                     <p class="note">
                         <strong>GitHub:</strong> Opens a new Discussion window with pre-filled text.<br>
-                        <strong>Firefox/GreasyFork:</strong> Redirects to the extension's feedback page.
+                        <strong>Store / GreasyFork:</strong> Redirects to the respective feedback page.
                     </p>
                 </form>
             </section>
         </div>
     </div>
 
+    <!-- ABOUT VIEW -->
     <div id="about-view" class="view-section">
         <header class="page-header">
             <h1>About Us</h1>
-            <p>The story behind these projects</p>
+            <p>The story behind these projects.</p>
         </header>
 
         <div class="about-container">
@@ -1171,22 +1215,20 @@ footer a { color: var(--accent); }
                 <h3>Support My Work</h3>
                 <div class="btn-group">
                     <a href="https://buymeacoffee.com/ozler" target="_blank" class="action-btn">
-                         <svg viewBox="0 0 16 16" width="16" height="16" style="margin-right:6px; fill:currentColor"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
+                         <svg viewBox="0 0 16 16" width="18" height="18" style="margin-right:10px; fill:currentColor"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>
                         Donate
                     </a>
                     <button onclick="switchView('feedback')" class="action-btn">
-                        <svg viewBox="0 0 16 16" width="16" height="16" style="margin-right:6px; fill:currentColor"><path fill-rule="evenodd" d="M8 1.5a6.5 6.5 0 100 13 6.5 6.5 0 000-13zM0 8a8 8 0 1116 0A8 8 0 010 8zm9 3a1 1 0 11-2 0 1 1 0 012 0zm-.25-6.25a.75.75 0 00-1.5 0v3.5a.75.75 0 001.5 0v-3.5z"></path></svg>
                         Leave Feedback
                     </button>
                     <button onclick="switchView('projects')" class="action-btn">
-                        <svg viewBox="0 0 16 16" width="16" height="16" style="margin-right:6px; fill:currentColor"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>
                         View Projects
                     </button>
                 </div>
             </div>
-
-            </div>
-
+        </div>
+        
+        <!-- Social Links single line -->
         <div class="social-links">
             <a href="mailto:devjk6918@gmail.com">Email</a>
             <a href="https://github.com/OZLER365" target="_blank">GitHub</a>
@@ -1203,23 +1245,69 @@ footer a { color: var(--accent); }
 
     <footer>
         <p>
-            © 2026 OZLER. All works licensed under <a href="https://opensource.org/licenses/MIT" target="_blank">MIT License</a>.
+            © 2026 OZLER. All works licensed under <a href="https://opensource.org/license/gpl-3-0-only" target="_blank">GPL 3.0 License</a>.
         </p>
     </footer>
 
 </div>
 
+<!-- YOUTUBE IFRAME API SCRIPT -->
+<script src="https://www.youtube.com/iframe_api"></script>
 <script>
+// --- DYNAMIC BACKGROUND IMAGES ---
+const sectionBackgrounds = {
+    'home': 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop', // Calm Tech Network
+    'projects': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop', // Coding/Dev
+    'feedback': 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop', // Network connections
+    'about': 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=2070&auto=format&fit=crop' // Professional Workspace
+};
+
+// --- AUDIO PLAYER LOGIC ---
+let ytPlayer;
+function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player('audio-player', {
+        height: '0',
+        width: '0',
+        videoId: 'DzYp5uqixz0',
+        playerVars: {
+            'autoplay': 1,
+            'controls': 0,
+            'loop': 1,
+            'playlist': 'DzYp5uqixz0' // needed for loop
+        },
+        events: {
+            'onReady': onPlayerReady
+        }
+    });
+}
+
+function onPlayerReady(event) {
+    event.target.playVideo();
+    
+    // Fallback play on interaction if autoplay blocked
+    const playOnInteraction = () => {
+        if (ytPlayer && ytPlayer.getPlayerState && ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) {
+            ytPlayer.playVideo();
+        }
+        document.body.removeEventListener('click', playOnInteraction);
+        document.body.removeEventListener('touchstart', playOnInteraction);
+        document.body.removeEventListener('keydown', playOnInteraction);
+    };
+    
+    document.body.addEventListener('click', playOnInteraction);
+    document.body.addEventListener('touchstart', playOnInteraction);
+    document.body.addEventListener('keydown', playOnInteraction);
+}
+
 // --- MOBILE MENU FUNCTIONS ---
 function toggleMobileMenu() {
     const menu = document.getElementById('mobileNavMenu');
     const overlay = document.getElementById('mobileNavOverlay');
     
-    menu.classList.toggle('active');
-    overlay.classList.toggle('active');
+    if (menu) menu.classList.toggle('active');
+    if (overlay) overlay.classList.toggle('active');
     
-    // Prevent body scroll when menu is open
-    if (menu.classList.contains('active')) {
+    if (menu && menu.classList.contains('active')) {
         document.body.style.overflow = 'hidden';
     } else {
         document.body.style.overflow = '';
@@ -1229,37 +1317,28 @@ function toggleMobileMenu() {
 function closeMobileMenu() {
     const menu = document.getElementById('mobileNavMenu');
     const overlay = document.getElementById('mobileNavOverlay');
-    menu.classList.remove('active');
-    overlay.classList.remove('active');
+    if (menu) menu.classList.remove('active');
+    if (overlay) overlay.classList.remove('active');
     document.body.style.overflow = '';
 }
 
 function switchViewMobile(viewName) {
     switchView(viewName);
     closeMobileMenu();
-    
-    // Update mobile nav active states
-    const mobileNavItems = ['home', 'projects', 'feedback', 'about'];
-    mobileNavItems.forEach(v => {
-        const mobileNav = document.getElementById('mobile-nav-' + v);
-        if (v === viewName) {
-            mobileNav.classList.add('active');
-        } else {
-            mobileNav.classList.remove('active');
-        }
-    });
 }
 
-// Close mobile menu with ESC key
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') {
-        closeMobileMenu();
-    }
+    if (e.key === 'Escape') closeMobileMenu();
 });
 
 // --- VIEW SWITCHING LOGIC WITH URL ROUTING ---
 function switchView(viewName) {
     const views = ['home', 'projects', 'feedback', 'about'];
+    
+    // Update body background
+    if (sectionBackgrounds[viewName]) {
+        document.body.style.backgroundImage = `url('${sectionBackgrounds[viewName]}')`;
+    }
     
     views.forEach(v => {
         const section = document.getElementById(v + '-view');
@@ -1267,19 +1346,18 @@ function switchView(viewName) {
         const mobileNav = document.getElementById('mobile-nav-' + v);
         
         if (v === viewName) {
-            section.classList.add('active-view');
-            nav.classList.add('active');
+            if (section) section.classList.add('active-view');
+            if (nav) nav.classList.add('active');
             if (mobileNav) mobileNav.classList.add('active');
         } else {
-            section.classList.remove('active-view');
-            nav.classList.remove('active');
+            if (section) section.classList.remove('active-view');
+            if (nav) nav.classList.remove('active');
             if (mobileNav) mobileNav.classList.remove('active');
         }
     });
 
     window.scrollTo(0, 0);
     
-    // Update URL hash
     const hashMap = {
         'home': '#/home',
         'projects': '#/repositories',
@@ -1292,75 +1370,37 @@ function switchView(viewName) {
 // --- URL ROUTING HANDLER ---
 function handleRouting() {
     const hash = window.location.hash;
-    
-    // Map URL hash to view names
     const routeMap = {
-        '#/home': 'home',
-        '#home': 'home',
-        '#/repositories': 'projects',
-        '#repositories': 'projects',
-        '#/issues': 'feedback',
-        '#issues': 'feedback',
-        '#/profile': 'about',
-        '#profile': 'about',
-        '': 'home',
-        '#': 'home',
-        '#/': 'home'
+        '#/home': 'home', '#home': 'home',
+        '#/repositories': 'projects', '#repositories': 'projects',
+        '#/issues': 'feedback', '#issues': 'feedback',
+        '#/profile': 'about', '#profile': 'about',
+        '': 'home', '#': 'home', '#/': 'home'
     };
     
     const viewName = routeMap[hash] || 'home';
-    
-    const views = ['home', 'projects', 'feedback', 'about'];
-    views.forEach(v => {
-        const section = document.getElementById(v + '-view');
-        const nav = document.getElementById('nav-' + v);
-        const mobileNav = document.getElementById('mobile-nav-' + v);
-        
-        if (v === viewName) {
-            section.classList.add('active-view');
-            nav.classList.add('active');
-            if (mobileNav) mobileNav.classList.add('active');
-        } else {
-            section.classList.remove('active-view');
-            nav.classList.remove('active');
-            if (mobileNav) mobileNav.classList.remove('active');
-        }
-    });
-    
-    window.scrollTo(0, 0);
+    switchView(viewName);
 }
 
-// Listen for hash changes (browser back/forward buttons)
 window.addEventListener('hashchange', handleRouting);
-
-// Load correct view on page load
 window.addEventListener('DOMContentLoaded', handleRouting);
-
-// --- THEME LOGIC ---
-function toggleTheme() {
-    const html = document.documentElement;
-    const current = html.getAttribute("data-theme");
-    const next = current === "light" ? "dark" : "light";
-    html.setAttribute("data-theme", next);
-    localStorage.setItem("theme", next);
-}
-if(localStorage.getItem("theme")) {
-    document.documentElement.setAttribute("data-theme", localStorage.getItem("theme"));
-}
 
 // --- SLIDER LOGIC ---
 function slide(sliderId, direction) {
     const slider = document.getElementById(sliderId);
+    if (!slider) return;
     const cards = slider.querySelectorAll('.card');
+    if (!cards || cards.length === 0) return;
+    
     let currentIndex = Array.from(cards).findIndex(card => card.classList.contains('active'));
     
-    // Remove active class from current card
-    cards[currentIndex].classList.remove('active');
+    if (currentIndex !== -1) {
+        cards[currentIndex].classList.remove('active');
+    } else {
+        currentIndex = 0;
+    }
     
-    // Calculate new index with wrapping
     currentIndex = (currentIndex + direction + cards.length) % cards.length;
-    
-    // Add active class to new card
     cards[currentIndex].classList.add('active');
 }
 
@@ -1382,17 +1422,9 @@ document.addEventListener('DOMContentLoaded', function() {
         }, { passive: true });
         
         function handleSwipe(sliderId) {
-            const swipeThreshold = 50; // minimum distance for swipe
-            
-            if (touchEndX < touchStartX - swipeThreshold) {
-                // Swipe left - next card
-                slide(sliderId, 1);
-            }
-            
-            if (touchEndX > touchStartX + swipeThreshold) {
-                // Swipe right - previous card
-                slide(sliderId, -1);
-            }
+            const swipeThreshold = 50; 
+            if (touchEndX < touchStartX - swipeThreshold) slide(sliderId, 1);
+            if (touchEndX > touchStartX + swipeThreshold) slide(sliderId, -1);
         }
     });
 });
@@ -1403,38 +1435,32 @@ let selectedRating = 0;
 
 document.addEventListener('DOMContentLoaded', function() {
     const stars = document.querySelectorAll('.star');
-    const ratingLabel = document.getElementById('ratingLabel');
+    const starRating = document.getElementById('starRating');
     
-    stars.forEach((star, index) => {
-        star.addEventListener('click', function() {
-            selectedRating = parseInt(this.getAttribute('data-value'));
-            updateStars(selectedRating);
-            updateRatingLabel(selectedRating);
-        });
-        
-        star.addEventListener('mouseenter', function() {
-            const hoverValue = parseInt(this.getAttribute('data-value'));
-            updateStars(hoverValue);
-        });
-    });
-    
-    document.getElementById('starRating').addEventListener('mouseleave', function() {
-        updateStars(selectedRating);
-    });
-    
-    function updateStars(rating) {
+    if (stars && stars.length > 0) {
         stars.forEach((star, index) => {
-            if (index < rating) {
-                star.classList.add('active');
-            } else {
-                star.classList.remove('active');
-            }
+            star.addEventListener('click', function() {
+                selectedRating = parseInt(this.getAttribute('data-value'));
+                updateStars(selectedRating);
+            });
+            
+            star.addEventListener('mouseenter', function() {
+                updateStars(parseInt(this.getAttribute('data-value')));
+            });
         });
     }
     
-    function updateRatingLabel(rating) {
-        const labels = ['No rating', 'Poor', 'Fair', 'Good', 'Very Good', 'Excellent'];
-        ratingLabel.textContent = labels[rating];
+    if (starRating) {
+        starRating.addEventListener('mouseleave', function() {
+            updateStars(selectedRating);
+        });
+    }
+    
+    function updateStars(rating) {
+        stars.forEach((star, index) => {
+            if (index < rating) star.classList.add('active');
+            else star.classList.remove('active');
+        });
     }
 });
 
@@ -1442,160 +1468,141 @@ document.addEventListener('DOMContentLoaded', function() {
 const extensionURLs = {
     'Image-Downloader-Extension-Firefox': {
         firefox: 'https://addons.mozilla.org/en-US/firefox/addon/universal-image-downloader/',
+        edge: 'https://microsoftedge.microsoft.com/addons/detail/universal-image-downloade/dmendeegjofenpfmgfipnnalebefonhd',
         greasyfork: null
     },
-    'Image-Downloader-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/561884-universal-image-downloader/feedback'
-    },
-    'Manga-UP-Chapter-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/560442-manga-up-ripper/feedback'
-    },
-    'Manga-Plaza-Chapter-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/560991-mangaplaza-ripper/feedback'
-    },
-    'Manta-Comic-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/562775-manta-comic-ripper/feedback'
-    },
-    'Tappytoon-Chapter-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/562783-tappytoon-ripper/feedback'
-    },
-    'WebComics-Chapter-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/562787-webcomics-ripper/feedback'
-    },
-    'Webnovel-Comic-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/562799-webnovel-comic-ripper/feedback'
-    },
-    'Ridibooks-Chapter-Downloader-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/562807-ridibooks-comic-ripper/feedback'
-    },
-    'Omoi-Azuki-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/562914-omoi-azuki-chapter-ripper/feedback'
-    },
-    'Comikey-Chapter-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/562935-comikey-chapter-ripper/feedback'
-    },
-    'Kakao-Page-Comic-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/563056-kakao-page-comic-ripper/feedback'
-    },
-    'Lezhin-Comics-Ripper-Downloader-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/563063-lezhin-comics-ripper-english-korean/feedback'
-    },
-    'MangaMirai-Chapter-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/563065-mangamirai-ripper/feedback'
-    },
-    'J-Novel-Club-Chapter-Ripper-Userscript': {
-        firefox: null,
-        greasyfork: 'https://greasyfork.org/en/scripts/565173-j-novel-club-chapter-ripper/feedback'
-    }
+    'Image-Downloader-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/561884-universal-image-downloader/feedback' },
+    'Manga-UP-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/560442-manga-up-ripper/feedback' },
+    'Manga-Plaza-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/560991-mangaplaza-ripper/feedback' },
+    'Manta-Comic-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562775-manta-comic-ripper/feedback' },
+    'Tappytoon-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562783-tappytoon-ripper/feedback' },
+    'WebComics-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562787-webcomics-ripper/feedback' },
+    'Webnovel-Comic-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562799-webnovel-comic-ripper/feedback' },
+    'Ridibooks-Chapter-Downloader-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562807-ridibooks-comic-ripper/feedback' },
+    'Omoi-Azuki-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562914-omoi-azuki-chapter-ripper/feedback' },
+    'Comikey-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562935-comikey-chapter-ripper/feedback' },
+    'Kakao-Page-Comic-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/563056-kakao-page-comic-ripper/feedback' },
+    'Lezhin-Comics-Ripper-Downloader-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/563063-lezhin-comics-ripper-english-korean/feedback' },
+    'MangaMirai-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/563065-mangamirai-ripper/feedback' },
+    'J-Novel-Club-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/565173-j-novel-club-chapter-ripper/feedback' }
 };
 
-// --- UPDATE FIREFOX/GREASYFORK BUTTON VISIBILITY ---
+// --- UPDATE FIREFOX/EDGE/GREASYFORK BUTTON VISIBILITY ---
 document.addEventListener('DOMContentLoaded', function() {
     const repoSelect = document.getElementById('repoSelect');
     const ffGfBtn = document.getElementById('firefoxGreasyforkBtn');
+    const edgeBtn = document.getElementById('edgeBtn');
+    const ffGfIcon = document.getElementById('ffGfIcon');
+    const ffGfText = document.getElementById('ffGfText');
     
-    repoSelect.addEventListener('change', function() {
-        const selectedRepo = this.value;
-        const urls = extensionURLs[selectedRepo];
-        
-        if (urls && (urls.firefox || urls.greasyfork)) {
-            ffGfBtn.style.display = 'block';
+    if (repoSelect) {
+        repoSelect.addEventListener('change', function() {
+            const selectedRepo = this.value;
+            const urls = extensionURLs[selectedRepo];
             
-            // Update button text and logo based on platform
-            if (urls.firefox) {
-                ffGfBtn.innerHTML = '<img src="https://blog.mozilla.org/opendesign/files/2018/07/firefox-logo-600x619.png" alt="Firefox" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> Login with Firefox Add-ons to Post Feedback';
-            } else if (urls.greasyfork) {
-                ffGfBtn.innerHTML = '<img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" style="width:16px;height:16px;vertical-align:middle;margin-right:6px;"> Login with GreasyFork to Post Feedback';
+            if (edgeBtn) {
+                if (urls && urls.edge) edgeBtn.style.display = 'inline-flex';
+                else edgeBtn.style.display = 'none';
             }
-        } else {
-            ffGfBtn.style.display = 'none';
-        }
-    });
+            
+            if (ffGfBtn) {
+                if (urls && (urls.firefox || urls.greasyfork)) {
+                    ffGfBtn.style.display = 'inline-flex';
+                    if (urls.firefox) {
+                        if (ffGfIcon) {
+                            ffGfIcon.src = "https://www.mozilla.org/media/protocol/img/logos/firefox/browser/logo.eb1324e44442.svg";
+                            ffGfIcon.style.display = "inline-block";
+                            ffGfIcon.style.filter = "none";
+                        }
+                        if (ffGfText) ffGfText.textContent = "Login with Firefox Add-ons To Post Feedback";
+                    } else if (urls.greasyfork) {
+                        if (ffGfIcon) {
+                            ffGfIcon.src = "https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png";
+                            ffGfIcon.style.display = "inline-block";
+                            ffGfIcon.style.filter = "invert(1) brightness(2)";
+                        }
+                        if (ffGfText) ffGfText.textContent = "Login with GreasyFork";
+                    }
+                } else {
+                    ffGfBtn.style.display = 'none';
+                }
+            }
+        });
+    }
+
+    if (edgeBtn) {
+        edgeBtn.addEventListener('click', function() {
+            if (!repoSelect) return;
+            const repo = repoSelect.value;
+            if (!repo) return;
+            const urls = extensionURLs[repo];
+            if (urls && urls.edge) window.open(urls.edge, '_blank');
+        });
+    }
 });
 
 // --- FIREFOX/GREASYFORK FEEDBACK HANDLER ---
 document.addEventListener('DOMContentLoaded', function() {
     const ffGfBtn = document.getElementById('firefoxGreasyforkBtn');
+    const repoSelect = document.getElementById('repoSelect');
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackBody = document.getElementById('feedbackBody');
     
-    ffGfBtn.addEventListener('click', function() {
-        const repo = document.getElementById('repoSelect').value;
-        const title = document.getElementById('feedbackTitle').value;
-        const body = document.getElementById('feedbackBody').value;
-        
-        if (!repo) {
-            alert('Please select an extension/script.');
-            return;
-        }
-        
-        const urls = extensionURLs[repo];
-        let targetURL = urls.firefox || urls.greasyfork;
-        
-        if (urls.greasyfork) {
-            // For GreasyFork, convert star rating to their system
-            let greasyforkRating = '';
-            if (selectedRating === 1 || selectedRating === 2) {
-                greasyforkRating = 'bad';
-            } else if (selectedRating === 3) {
-                greasyforkRating = 'ok';
-            } else if (selectedRating === 4 || selectedRating === 5) {
-                greasyforkRating = 'good';
-            }
+    if (ffGfBtn) {
+        ffGfBtn.addEventListener('click', function() {
+            if (!repoSelect) return;
+            const repo = repoSelect.value;
+            const title = feedbackTitle ? feedbackTitle.value : '';
+            const body = feedbackBody ? feedbackBody.value : '';
             
-            // Store feedback in sessionStorage for user reference (if provided)
-            if (title || body || selectedRating > 0) {
-                const ratingText = selectedRating > 0 ? `\n\nRating: ${greasyforkRating} (${selectedRating}/5 stars)` : '';
-                sessionStorage.setItem('pendingFeedback', JSON.stringify({
-                    title: title,
-                    body: body + ratingText,
-                    rating: greasyforkRating
-                }));
+            if (!repo) { alert('Please select an extension/script.'); return; }
+            
+            const urls = extensionURLs[repo];
+            let targetURL = urls.firefox || urls.greasyfork;
+            
+            if (urls.greasyfork) {
+                let greasyforkRating = '';
+                if (selectedRating === 1 || selectedRating === 2) greasyforkRating = 'bad';
+                else if (selectedRating === 3) greasyforkRating = 'ok';
+                else if (selectedRating === 4 || selectedRating === 5) greasyforkRating = 'good';
+                
+                if (title || body || selectedRating > 0) {
+                    const ratingText = selectedRating > 0 ? `\n\nRating: ${greasyforkRating} (${selectedRating}/5 stars)` : '';
+                    sessionStorage.setItem('pendingFeedback', JSON.stringify({
+                        title: title,
+                        body: body + ratingText,
+                        rating: greasyforkRating
+                    }));
+                }
             }
-        }
-        
-        // Open the feedback page
-        window.open(targetURL, '_blank');
-    });
+            if (targetURL) window.open(targetURL, '_blank');
+        });
+    }
 });
 
 // --- FEEDBACK GITHUB REDIRECT LOGIC ---
-const form = document.getElementById('feedbackForm');
-
-form.addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    // Your GitHub Username
-    const username = "OZLER365";
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('feedbackForm');
     
-    // Get Form Values
-    const repo = document.getElementById('repoSelect').value;
-    const category = document.getElementById('categorySelect').value;
-    const title = encodeURIComponent(document.getElementById('feedbackTitle').value);
-    const body = encodeURIComponent(document.getElementById('feedbackBody').value);
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = "OZLER365";
+            const repoSelect = document.getElementById('repoSelect');
+            const categorySelect = document.getElementById('categorySelect');
+            const feedbackTitle = document.getElementById('feedbackTitle');
+            const feedbackBody = document.getElementById('feedbackBody');
 
-    if(!repo) {
-        alert("Please select an extension/script.");
-        return;
+            const repo = repoSelect ? repoSelect.value : '';
+            const category = categorySelect ? categorySelect.value : '';
+            const title = feedbackTitle ? encodeURIComponent(feedbackTitle.value) : '';
+            const body = feedbackBody ? encodeURIComponent(feedbackBody.value) : '';
+
+            if(!repo) { alert("Please select an extension/script."); return; }
+            const url = `https://github.com/${username}/${repo}/discussions/new?category=${category}&title=${title}&body=${body}`;
+            window.open(url, '_blank');
+        });
     }
-
-    // Construct the GitHub Discussion URL
-    // Format: https://github.com/USER/REPO/discussions/new?category=Slug&title=Title&body=Body
-    const url = `https://github.com/${username}/${repo}/discussions/new?category=${category}&title=${title}&body=${body}`;
-
-    // Redirect to GitHub
-    window.open(url, '_blank');
 });
 </script>
 

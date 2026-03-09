@@ -14,11 +14,8 @@
     --text-main: #f8f9fa;
     --text-muted: #ced4da;
     --text-header: #ffffff;
-    
     --primary: #ffffff; 
-    --primary-hover: #e9ecef;
-    
-    --radius: 12px; /* Smooth, professional rounding */
+    --radius: 12px;
 }
 
 /* --- RESET & BASE --- */
@@ -26,7 +23,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Highly targeted transitions for performance (replaces global * selector) */
+a, button, .nav-item, .action-btn, .feedback-btn, .card, .star, .slider-btn {
+    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
 html {
@@ -43,13 +44,13 @@ body {
     display: flex;
     flex-direction: column;
     
-    /* Default background (Overview) */
-    background-image: url('https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop');
+    /* Default background (Overview) mapped to local image */
+    background-image: url('images/home-bg.jpg');
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    transition: background-image 0.8s ease-in-out;
+    transition: background-image 0.4s ease-in-out;
 }
 
 /* Reduced Blur Overlay */
@@ -59,10 +60,11 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(15, 17, 21, 0.55); /* Lighter dark wash to see image */
-    backdrop-filter: blur(6px); /* Reduced blur */
+    background: rgba(15, 17, 21, 0.55);
+    backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     z-index: -1;
+    will-change: transform; /* Hint to browser for GPU rendering */
 }
 
 /* Custom Scrollbar */
@@ -86,7 +88,6 @@ body {
 }
 
 a { text-decoration: none; color: var(--primary); }
-
 button { font-family: inherit; }
 
 /* Text Readability Shadow */
@@ -116,6 +117,7 @@ button { font-family: inherit; }
     align-items: center;
     gap: 12px;
     letter-spacing: 1px;
+    cursor: pointer;
 }
 
 /* Clean Minimal Logo Mark */
@@ -171,7 +173,7 @@ button { font-family: inherit; }
     height: 2px;
     background: var(--text-header);
     border-radius: 2px;
-    transition: 0.3s;
+    transition: transform 0.3s;
 }
 
 .mobile-nav-overlay {
@@ -185,6 +187,7 @@ button { font-family: inherit; }
     z-index: 998;
     opacity: 0;
     visibility: hidden;
+    transition: opacity 0.3s ease;
 }
 
 .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
@@ -204,6 +207,7 @@ button { font-family: inherit; }
     flex-direction: column;
     padding: 80px 24px 24px;
     visibility: hidden;
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .mobile-nav-menu.active { right: 0; visibility: visible; }
@@ -240,15 +244,15 @@ button { font-family: inherit; }
     flex: 1;
     width: 100%;
     position: relative;
-    z-index: 2; /* Sit above the blur */
+    z-index: 2;
 }
 
 /* --- VIEW UTILITY --- */
-.view-section { display: none; animation: fadeIn 0.5s ease-in-out; }
+.view-section { display: none; animation: fadeIn 0.4s ease-in-out; }
 .view-section.active-view { display: block; }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
+    from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -316,7 +320,6 @@ button { font-family: inherit; }
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    transition: all 0.3s ease;
 }
 
 .action-btn:hover, .feedback-btn:hover {
@@ -393,12 +396,7 @@ button { font-family: inherit; }
 
 .slider .card.active {
     display: flex;
-    animation: fadeSlideIn 0.4s ease forwards;
-}
-
-@keyframes fadeSlideIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    animation: fadeSlideIn 0.3s ease forwards;
 }
 
 .slider-btn {
@@ -499,7 +497,7 @@ button { font-family: inherit; }
 
 .section-notice {
     color: var(--text-main);
-    padding: 16px 0;
+    padding: 16px 24px;
     margin-bottom: 40px;
     font-size: 1.05rem;
     display: flex;
@@ -508,7 +506,6 @@ button { font-family: inherit; }
     background: rgba(255, 204, 0, 0.1);
     border: 1px solid rgba(255, 204, 0, 0.3);
     border-radius: var(--radius);
-    padding: 16px 24px;
     backdrop-filter: blur(8px);
 }
 
@@ -546,11 +543,11 @@ select, textarea, input {
     font-family: 'Inter', sans-serif;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
+    transition: all 0.3s ease;
 }
 
-/* Ensure options in select drop-down are visible */
 select option { 
-    background: #0d1117; 
+    background: #1a1a1a; 
     color: #fff; 
 }
 
@@ -602,7 +599,7 @@ select:focus, textarea:focus, input:focus {
 /* --- SOCIAL LINKS --- */
 .social-links {
     display: flex;
-    flex-wrap: wrap; /* Allows wrapping on tiny screens, but attempts inline */
+    flex-wrap: wrap; 
     justify-content: center;
     align-items: center;
     gap: 20px;
@@ -615,6 +612,7 @@ select:focus, textarea:focus, input:focus {
     font-size: 1.05rem;
     font-weight: 500;
     padding: 4px 8px;
+    transition: transform 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
 }
 
 .social-links a:hover {
@@ -653,9 +651,9 @@ footer a:hover { color: var(--text-header); }
 <!-- HIDDEN YOUTUBE AUDIO PLAYER -->
 <div id="audio-player" style="display:none;"></div>
 
-<nav class="navbar">
+<nav class="navbar text-shadow-layer">
     <div style="display: flex; align-items: center;">
-        <div class="logo">OZLER</div>
+        <div class="logo" onclick="switchView('projects')">OZLER</div>
         <div class="nav-links">
             <button class="nav-item active" onclick="switchView('home')" id="nav-home">Overview</button>
             <button class="nav-item" onclick="switchView('projects')" id="nav-projects">Projects</button>
@@ -801,6 +799,7 @@ footer a:hover { color: var(--text-header); }
                             </div>
                         </div>
 
+                        <!-- Maintained scripts structured efficiently -->
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://global.manga-up.com/assets/icon.webp" alt="Icon" class="card-icon">
@@ -1159,10 +1158,9 @@ footer a:hover { color: var(--text-header); }
                     </div>
 
                     <div style="padding: 24px 0; display: flex; flex-direction: column; gap: 16px;">
-                        
                         <button type="button" id="edgeBtn" class="feedback-btn" style="display: none;">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Microsoft_Edge_logo_%282019%29.svg" alt="Edge" style="width:20px;height:20px;margin-right:8px;">
-                            Login with Edge Add-ons To Post Feedback
+                            Login with Edge Add-ons
                         </button>
                         
                         <button type="button" id="firefoxGreasyforkBtn" class="feedback-btn" style="display: none;">
@@ -1251,220 +1249,18 @@ footer a:hover { color: var(--text-header); }
 
 </div>
 
-<!-- YOUTUBE IFRAME API SCRIPT -->
-<script src="https://www.youtube.com/iframe_api"></script>
+<!-- YOUTUBE IFRAME API SCRIPT DEFERRED FOR PERFORMANCE -->
+<script src="https://www.youtube.com/iframe_api" async defer></script>
+
 <script>
-// --- DYNAMIC BACKGROUND IMAGES ---
+// --- GLOBAL VARS & CONFIG ---
 const sectionBackgrounds = {
-    'home': 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop', // Calm Tech Network
-    'projects': 'https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop', // Coding/Dev
-    'feedback': 'https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop', // Network connections
-    'about': 'https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?q=80&w=2070&auto=format&fit=crop' // Professional Workspace
+    'home': 'images/home-bg.jpg',
+    'projects': 'images/projects-bg.jpg',
+    'feedback': 'images/feedback-bg.jpg',
+    'about': 'images/about-bg.jpg'
 };
 
-// --- AUDIO PLAYER LOGIC ---
-let ytPlayer;
-function onYouTubeIframeAPIReady() {
-    ytPlayer = new YT.Player('audio-player', {
-        height: '0',
-        width: '0',
-        videoId: 'DzYp5uqixz0',
-        playerVars: {
-            'autoplay': 1,
-            'controls': 0,
-            'loop': 1,
-            'playlist': 'DzYp5uqixz0' // needed for loop
-        },
-        events: {
-            'onReady': onPlayerReady
-        }
-    });
-}
-
-function onPlayerReady(event) {
-    event.target.playVideo();
-    
-    // Fallback play on interaction if autoplay blocked
-    const playOnInteraction = () => {
-        if (ytPlayer && ytPlayer.getPlayerState && ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) {
-            ytPlayer.playVideo();
-        }
-        document.body.removeEventListener('click', playOnInteraction);
-        document.body.removeEventListener('touchstart', playOnInteraction);
-        document.body.removeEventListener('keydown', playOnInteraction);
-    };
-    
-    document.body.addEventListener('click', playOnInteraction);
-    document.body.addEventListener('touchstart', playOnInteraction);
-    document.body.addEventListener('keydown', playOnInteraction);
-}
-
-// --- MOBILE MENU FUNCTIONS ---
-function toggleMobileMenu() {
-    const menu = document.getElementById('mobileNavMenu');
-    const overlay = document.getElementById('mobileNavOverlay');
-    
-    if (menu) menu.classList.toggle('active');
-    if (overlay) overlay.classList.toggle('active');
-    
-    if (menu && menu.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-    } else {
-        document.body.style.overflow = '';
-    }
-}
-
-function closeMobileMenu() {
-    const menu = document.getElementById('mobileNavMenu');
-    const overlay = document.getElementById('mobileNavOverlay');
-    if (menu) menu.classList.remove('active');
-    if (overlay) overlay.classList.remove('active');
-    document.body.style.overflow = '';
-}
-
-function switchViewMobile(viewName) {
-    switchView(viewName);
-    closeMobileMenu();
-}
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape') closeMobileMenu();
-});
-
-// --- VIEW SWITCHING LOGIC WITH URL ROUTING ---
-function switchView(viewName) {
-    const views = ['home', 'projects', 'feedback', 'about'];
-    
-    // Update body background
-    if (sectionBackgrounds[viewName]) {
-        document.body.style.backgroundImage = `url('${sectionBackgrounds[viewName]}')`;
-    }
-    
-    views.forEach(v => {
-        const section = document.getElementById(v + '-view');
-        const nav = document.getElementById('nav-' + v);
-        const mobileNav = document.getElementById('mobile-nav-' + v);
-        
-        if (v === viewName) {
-            if (section) section.classList.add('active-view');
-            if (nav) nav.classList.add('active');
-            if (mobileNav) mobileNav.classList.add('active');
-        } else {
-            if (section) section.classList.remove('active-view');
-            if (nav) nav.classList.remove('active');
-            if (mobileNav) mobileNav.classList.remove('active');
-        }
-    });
-
-    window.scrollTo(0, 0);
-    
-    const hashMap = {
-        'home': '#/home',
-        'projects': '#/repositories',
-        'feedback': '#/issues',
-        'about': '#/profile'
-    };
-    history.pushState(null, '', hashMap[viewName] || '#/home');
-}
-
-// --- URL ROUTING HANDLER ---
-function handleRouting() {
-    const hash = window.location.hash;
-    const routeMap = {
-        '#/home': 'home', '#home': 'home',
-        '#/repositories': 'projects', '#repositories': 'projects',
-        '#/issues': 'feedback', '#issues': 'feedback',
-        '#/profile': 'about', '#profile': 'about',
-        '': 'home', '#': 'home', '#/': 'home'
-    };
-    
-    const viewName = routeMap[hash] || 'home';
-    switchView(viewName);
-}
-
-window.addEventListener('hashchange', handleRouting);
-window.addEventListener('DOMContentLoaded', handleRouting);
-
-// --- SLIDER LOGIC ---
-function slide(sliderId, direction) {
-    const slider = document.getElementById(sliderId);
-    if (!slider) return;
-    const cards = slider.querySelectorAll('.card');
-    if (!cards || cards.length === 0) return;
-    
-    let currentIndex = Array.from(cards).findIndex(card => card.classList.contains('active'));
-    
-    if (currentIndex !== -1) {
-        cards[currentIndex].classList.remove('active');
-    } else {
-        currentIndex = 0;
-    }
-    
-    currentIndex = (currentIndex + direction + cards.length) % cards.length;
-    cards[currentIndex].classList.add('active');
-}
-
-// --- TOUCH SUPPORT FOR SLIDERS ---
-document.addEventListener('DOMContentLoaded', function() {
-    const sliders = document.querySelectorAll('.slider');
-    
-    sliders.forEach(slider => {
-        let touchStartX = 0;
-        let touchEndX = 0;
-        
-        slider.addEventListener('touchstart', function(e) {
-            touchStartX = e.changedTouches[0].screenX;
-        }, { passive: true });
-        
-        slider.addEventListener('touchend', function(e) {
-            touchEndX = e.changedTouches[0].screenX;
-            handleSwipe(slider.id);
-        }, { passive: true });
-        
-        function handleSwipe(sliderId) {
-            const swipeThreshold = 50; 
-            if (touchEndX < touchStartX - swipeThreshold) slide(sliderId, 1);
-            if (touchEndX > touchStartX + swipeThreshold) slide(sliderId, -1);
-        }
-    });
-});
-
-
-// --- STAR RATING LOGIC ---
-let selectedRating = 0;
-
-document.addEventListener('DOMContentLoaded', function() {
-    const stars = document.querySelectorAll('.star');
-    const starRating = document.getElementById('starRating');
-    
-    if (stars && stars.length > 0) {
-        stars.forEach((star, index) => {
-            star.addEventListener('click', function() {
-                selectedRating = parseInt(this.getAttribute('data-value'));
-                updateStars(selectedRating);
-            });
-            
-            star.addEventListener('mouseenter', function() {
-                updateStars(parseInt(this.getAttribute('data-value')));
-            });
-        });
-    }
-    
-    if (starRating) {
-        starRating.addEventListener('mouseleave', function() {
-            updateStars(selectedRating);
-        });
-    }
-    
-    function updateStars(rating) {
-        stars.forEach((star, index) => {
-            if (index < rating) star.classList.add('active');
-            else star.classList.remove('active');
-        });
-    }
-});
-
-// --- EXTENSION URL MAPPING ---
 const extensionURLs = {
     'Image-Downloader-Extension-Firefox': {
         firefox: 'https://addons.mozilla.org/en-US/firefox/addon/universal-image-downloader/',
@@ -1487,24 +1283,75 @@ const extensionURLs = {
     'J-Novel-Club-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/565173-j-novel-club-chapter-ripper/feedback' }
 };
 
-// --- UPDATE FIREFOX/EDGE/GREASYFORK BUTTON VISIBILITY ---
+let ytPlayer;
+let selectedRating = 0;
+
+// --- INITIALIZATION BLOCK (Merged for Performance) ---
 document.addEventListener('DOMContentLoaded', function() {
+    
+    // 1. Preload Backgrounds (Offloaded)
+    window.addEventListener('load', () => {
+        Object.values(sectionBackgrounds).forEach(url => {
+            const img = new Image();
+            img.src = url;
+        });
+    });
+
+    // 2. Routing Setup
+    handleRouting();
+    window.addEventListener('hashchange', handleRouting);
+
+    // 3. Slider Swipe Events (Passive)
+    document.querySelectorAll('.slider').forEach(slider => {
+        let touchStartX = 0;
+        let touchEndX = 0;
+        slider.addEventListener('touchstart', e => touchStartX = e.changedTouches[0].screenX, { passive: true });
+        slider.addEventListener('touchend', e => {
+            touchEndX = e.changedTouches[0].screenX;
+            if (touchEndX < touchStartX - 50) slide(slider.id, 1);
+            if (touchEndX > touchStartX + 50) slide(slider.id, -1);
+        }, { passive: true });
+    });
+
+    // 4. Star Rating Logic
+    const stars = document.querySelectorAll('.star');
+    const starRating = document.getElementById('starRating');
+    
+    function updateStars(rating) {
+        stars.forEach((star, index) => {
+            if (index < rating) star.classList.add('active');
+            else star.classList.remove('active');
+        });
+    }
+
+    if (stars.length) {
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                selectedRating = parseInt(this.getAttribute('data-value'));
+                updateStars(selectedRating);
+            });
+            star.addEventListener('mouseenter', function() {
+                updateStars(parseInt(this.getAttribute('data-value')));
+            });
+        });
+        if (starRating) starRating.addEventListener('mouseleave', () => updateStars(selectedRating));
+    }
+
+    // 5. Feedback Form UI Logic
     const repoSelect = document.getElementById('repoSelect');
     const ffGfBtn = document.getElementById('firefoxGreasyforkBtn');
     const edgeBtn = document.getElementById('edgeBtn');
     const ffGfIcon = document.getElementById('ffGfIcon');
     const ffGfText = document.getElementById('ffGfText');
-    
+    const feedbackTitle = document.getElementById('feedbackTitle');
+    const feedbackBody = document.getElementById('feedbackBody');
+    const categorySelect = document.getElementById('categorySelect');
+    const form = document.getElementById('feedbackForm');
+
     if (repoSelect) {
         repoSelect.addEventListener('change', function() {
-            const selectedRepo = this.value;
-            const urls = extensionURLs[selectedRepo];
-            
-            if (edgeBtn) {
-                if (urls && urls.edge) edgeBtn.style.display = 'inline-flex';
-                else edgeBtn.style.display = 'none';
-            }
-            
+            const urls = extensionURLs[this.value];
+            if (edgeBtn) edgeBtn.style.display = (urls && urls.edge) ? 'inline-flex' : 'none';
             if (ffGfBtn) {
                 if (urls && (urls.firefox || urls.greasyfork)) {
                     ffGfBtn.style.display = 'inline-flex';
@@ -1514,7 +1361,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             ffGfIcon.style.display = "inline-block";
                             ffGfIcon.style.filter = "none";
                         }
-                        if (ffGfText) ffGfText.textContent = "Login with Firefox Add-ons To Post Feedback";
+                        if (ffGfText) ffGfText.textContent = "Login with Firefox Add-ons";
                     } else if (urls.greasyfork) {
                         if (ffGfIcon) {
                             ffGfIcon.src = "https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png";
@@ -1532,78 +1379,116 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (edgeBtn) {
         edgeBtn.addEventListener('click', function() {
-            if (!repoSelect) return;
-            const repo = repoSelect.value;
-            if (!repo) return;
-            const urls = extensionURLs[repo];
+            const urls = extensionURLs[repoSelect.value];
             if (urls && urls.edge) window.open(urls.edge, '_blank');
         });
     }
-});
 
-// --- FIREFOX/GREASYFORK FEEDBACK HANDLER ---
-document.addEventListener('DOMContentLoaded', function() {
-    const ffGfBtn = document.getElementById('firefoxGreasyforkBtn');
-    const repoSelect = document.getElementById('repoSelect');
-    const feedbackTitle = document.getElementById('feedbackTitle');
-    const feedbackBody = document.getElementById('feedbackBody');
-    
     if (ffGfBtn) {
         ffGfBtn.addEventListener('click', function() {
-            if (!repoSelect) return;
             const repo = repoSelect.value;
-            const title = feedbackTitle ? feedbackTitle.value : '';
-            const body = feedbackBody ? feedbackBody.value : '';
-            
-            if (!repo) { alert('Please select an extension/script.'); return; }
+            if (!repo) return alert('Please select an extension/script.');
             
             const urls = extensionURLs[repo];
             let targetURL = urls.firefox || urls.greasyfork;
             
             if (urls.greasyfork) {
-                let greasyforkRating = '';
-                if (selectedRating === 1 || selectedRating === 2) greasyforkRating = 'bad';
-                else if (selectedRating === 3) greasyforkRating = 'ok';
-                else if (selectedRating === 4 || selectedRating === 5) greasyforkRating = 'good';
-                
-                if (title || body || selectedRating > 0) {
-                    const ratingText = selectedRating > 0 ? `\n\nRating: ${greasyforkRating} (${selectedRating}/5 stars)` : '';
+                let ratingStr = selectedRating < 3 ? 'bad' : (selectedRating === 3 ? 'ok' : 'good');
+                if (feedbackTitle.value || feedbackBody.value || selectedRating > 0) {
                     sessionStorage.setItem('pendingFeedback', JSON.stringify({
-                        title: title,
-                        body: body + ratingText,
-                        rating: greasyforkRating
+                        title: feedbackTitle.value,
+                        body: feedbackBody.value + (selectedRating > 0 ? `\n\nRating: ${ratingStr} (${selectedRating}/5 stars)` : ''),
+                        rating: ratingStr
                     }));
                 }
             }
             if (targetURL) window.open(targetURL, '_blank');
         });
     }
-});
 
-// --- FEEDBACK GITHUB REDIRECT LOGIC ---
-document.addEventListener('DOMContentLoaded', function() {
-    const form = document.getElementById('feedbackForm');
-    
     if (form) {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
-            const username = "OZLER365";
-            const repoSelect = document.getElementById('repoSelect');
-            const categorySelect = document.getElementById('categorySelect');
-            const feedbackTitle = document.getElementById('feedbackTitle');
-            const feedbackBody = document.getElementById('feedbackBody');
-
-            const repo = repoSelect ? repoSelect.value : '';
-            const category = categorySelect ? categorySelect.value : '';
-            const title = feedbackTitle ? encodeURIComponent(feedbackTitle.value) : '';
-            const body = feedbackBody ? encodeURIComponent(feedbackBody.value) : '';
-
-            if(!repo) { alert("Please select an extension/script."); return; }
-            const url = `https://github.com/${username}/${repo}/discussions/new?category=${category}&title=${title}&body=${body}`;
+            const repo = repoSelect.value;
+            if(!repo) return alert("Please select an extension/script.");
+            
+            const url = `https://github.com/OZLER365/${repo}/discussions/new?category=${categorySelect.value}&title=${encodeURIComponent(feedbackTitle.value)}&body=${encodeURIComponent(feedbackBody.value)}`;
             window.open(url, '_blank');
         });
     }
 });
+
+// --- CORE FUNCTIONS ---
+function onYouTubeIframeAPIReady() {
+    ytPlayer = new YT.Player('audio-player', {
+        height: '0', width: '0', videoId: 'DzYp5uqixz0',
+        playerVars: { 'autoplay': 1, 'controls': 0, 'loop': 1, 'playlist': 'DzYp5uqixz0' },
+        events: { 'onReady': onPlayerReady }
+    });
+}
+
+function onPlayerReady(event) {
+    event.target.playVideo();
+    const playOnInteraction = () => {
+        if (ytPlayer && ytPlayer.getPlayerState && ytPlayer.getPlayerState() !== YT.PlayerState.PLAYING) ytPlayer.playVideo();
+        document.body.removeEventListener('click', playOnInteraction);
+        document.body.removeEventListener('touchstart', playOnInteraction);
+    };
+    document.body.addEventListener('click', playOnInteraction);
+    document.body.addEventListener('touchstart', playOnInteraction);
+}
+
+function toggleMobileMenu() {
+    document.getElementById('mobileNavMenu')?.classList.toggle('active');
+    document.getElementById('mobileNavOverlay')?.classList.toggle('active');
+    document.body.style.overflow = document.getElementById('mobileNavMenu')?.classList.contains('active') ? 'hidden' : '';
+}
+
+function closeMobileMenu() {
+    document.getElementById('mobileNavMenu')?.classList.remove('active');
+    document.getElementById('mobileNavOverlay')?.classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+function switchViewMobile(viewName) { switchView(viewName); closeMobileMenu(); }
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMobileMenu(); });
+
+function switchView(viewName) {
+    if (sectionBackgrounds[viewName]) document.body.style.backgroundImage = `url('${sectionBackgrounds[viewName]}')`;
+    
+    ['home', 'projects', 'feedback', 'about'].forEach(v => {
+        document.getElementById(v + '-view')?.classList.toggle('active-view', v === viewName);
+        document.getElementById('nav-' + v)?.classList.toggle('active', v === viewName);
+        document.getElementById('mobile-nav-' + v)?.classList.toggle('active', v === viewName);
+    });
+
+    window.scrollTo(0, 0);
+    const hashMap = { 'home': '#/home', 'projects': '#/repositories', 'feedback': '#/issues', 'about': '#/profile' };
+    history.pushState(null, '', hashMap[viewName] || '#/home');
+}
+
+function handleRouting() {
+    const routeMap = {
+        '#/home': 'home', '#home': 'home', '#/repositories': 'projects', '#repositories': 'projects',
+        '#/issues': 'feedback', '#issues': 'feedback', '#/profile': 'about', '#profile': 'about',
+        '': 'home', '#': 'home', '#/': 'home'
+    };
+    switchView(routeMap[window.location.hash] || 'home');
+}
+
+function slide(sliderId, direction) {
+    const slider = document.getElementById(sliderId);
+    if (!slider) return;
+    const cards = slider.querySelectorAll('.card');
+    if (!cards.length) return;
+    
+    let currentIndex = Array.from(cards).findIndex(c => c.classList.contains('active'));
+    if (currentIndex !== -1) cards[currentIndex].classList.remove('active');
+    else currentIndex = 0;
+    
+    cards[(currentIndex + direction + cards.length) % cards.length].classList.add('active');
+}
 </script>
 
 </body>

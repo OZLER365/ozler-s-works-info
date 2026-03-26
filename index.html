@@ -6,7 +6,6 @@
 <title>OZLER – Projects & Feedback</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='16' fill='%2324292f'/%3E%3Cpath d='M16 8a8 8 0 1 0 0 16 8 8 0 0 0 0-16z' fill='none' stroke='white' stroke-width='3'/%3E%3C/svg%3E" type="image/svg+xml">
 
-<!-- AGGRESSIVE PRELOADING TO PREVENT BACKGROUND BLINKING/DELAY -->
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop">
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=2070&auto=format&fit=crop">
 <link rel="preload" as="image" href="https://images.unsplash.com/photo-1516321497487-e288fb19713f?q=80&w=2070&auto=format&fit=crop">
@@ -654,10 +653,8 @@ footer a:hover { color: var(--text-header); }
 </head>
 <body>
 
-<!-- GLOBAL BLUR OVERLAY -->
 <div id="bg-blur-overlay"></div>
 
-<!-- HIDDEN YOUTUBE AUDIO PLAYER -->
 <div id="audio-player" style="display:none;"></div>
 
 <nav class="navbar text-shadow-layer">
@@ -691,7 +688,6 @@ footer a:hover { color: var(--text-header); }
 
 <div class="container text-shadow-layer">
 
-    <!-- OVERVIEW VIEW -->
     <div id="home-view" class="view-section active-view">
         <header class="page-header">
             <h1>Thank You For Installing</h1>
@@ -716,7 +712,6 @@ footer a:hover { color: var(--text-header); }
             </div>
         </section>
 
-        <!-- Social Links single line -->
         <div class="social-links">
             <a href="mailto:devjk6918@gmail.com">Email</a>
             <a href="https://github.com/OZLER365" target="_blank">GitHub</a>
@@ -731,7 +726,6 @@ footer a:hover { color: var(--text-header); }
         </div>
     </div>
 
-    <!-- PROJECTS VIEW -->
     <div id="projects-view" class="view-section">
         <header class="page-header">
             <h1>Projects</h1>
@@ -1094,6 +1088,28 @@ footer a:hover { color: var(--text-header); }
                             </div>
                         </div>
 
+                        <div class="card">
+                            <div class="card-header">
+                                <img src="https://comics.inkr.com/_next/static/media/inkr-logo.f50e229a.svg" alt="Icon" class="card-icon" onerror="this.src='https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9e/81/2a/9e812ae3-62bd-4c11-06ec-ca47e2c9ce3e/Placeholder.mill/400x400bb-75.webp'">
+                                <h3>Inkr Comic Ripper</h3>
+                            </div>
+                            <p class="description">
+                                Extracts and downloads chapters from Inkr Comics. Fast and reliable.
+                            </p>
+                            <div class="links">
+                                <div class="links-container">
+                                    <a href="https://greasyfork.org/en/scripts/569825-inkr-comic-ripper" target="_blank">
+                                        <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
+                                        GreasyFork
+                                    </a>
+                                    <a href="https://github.com/OZLER365/Inkr-Comic-Ripper" target="_blank">
+                                        <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
+                                        GitHub
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                     <button class="slider-btn next" onclick="slide('script-slider', 1)">❯</button>
                 </div>
@@ -1102,11 +1118,10 @@ footer a:hover { color: var(--text-header); }
         </div>
     </div>
 
-    <!-- FEEDBACK VIEW -->
     <div id="feedback-view" class="view-section">
         <div class="feedback-wrapper">
             <header class="page-header">
-                <h1 style="white-space: nowrap; font-size: clamp(1rem, 4vw, 3rem); margin: 0 auto; text-align: center;">Please Tell Us How We Can Improve.</h1>
+                <h1 style="font-size: clamp(1.5rem, 4vw, 3rem); margin: 0 auto; text-align: center; line-height: 1.3;">Please Tell Us How We Can Improve.</h1>
                 <p>Submit Your Feedback</p>
             </header>
 
@@ -1132,6 +1147,7 @@ footer a:hover { color: var(--text-header); }
                             <option value="Lezhin-Comics-Ripper-Downloader-Userscript">Lezhin Comics Ripper</option>
                             <option value="MangaMirai-Chapter-Ripper-Userscript">MangaMirai Ripper</option>
                             <option value="J-Novel-Club-Chapter-Ripper-Userscript">J-Novel Club Ripper</option>
+                            <option value="Inkr-Comic-Ripper">Inkr Comic Ripper</option>
                         </select>
                     </div>
 
@@ -1191,7 +1207,6 @@ footer a:hover { color: var(--text-header); }
         </div>
     </div>
 
-    <!-- ABOUT VIEW -->
     <div id="about-view" class="view-section">
         <header class="page-header">
             <h1>About Us</h1>
@@ -1234,7 +1249,6 @@ footer a:hover { color: var(--text-header); }
             </div>
         </div>
         
-        <!-- Social Links single line -->
         <div class="social-links">
             <a href="mailto:devjk6918@gmail.com">Email</a>
             <a href="https://github.com/OZLER365" target="_blank">GitHub</a>
@@ -1257,7 +1271,6 @@ footer a:hover { color: var(--text-header); }
 
 </div>
 
-<!-- YOUTUBE IFRAME API SCRIPT DEFERRED FOR PERFORMANCE -->
 <script src="https://www.youtube.com/iframe_api" async defer></script>
 
 <script>
@@ -1288,7 +1301,8 @@ const extensionURLs = {
     'Kakao-Page-Comic-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/563056-kakao-page-comic-ripper/feedback' },
     'Lezhin-Comics-Ripper-Downloader-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/563063-lezhin-comics-ripper-english-korean/feedback' },
     'MangaMirai-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/563065-mangamirai-ripper/feedback' },
-    'J-Novel-Club-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/565173-j-novel-club-chapter-ripper/feedback' }
+    'J-Novel-Club-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/565173-j-novel-club-chapter-ripper/feedback' },
+    'Inkr-Comic-Ripper': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/569825-inkr-comic-ripper/feedback' }
 };
 
 let ytPlayer;
@@ -1368,7 +1382,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             ffGfIcon.style.display = "inline-block";
                             ffGfIcon.style.filter = "invert(1) brightness(2)";
                         }
-                        if (ffGfText) ffGfText.textContent = "Login with GreasyFork";
+                        if (ffGfText) ffGfText.textContent = "Login with GreasyFork To Post Feedback";
                     }
                 } else {
                     ffGfBtn.style.display = 'none';

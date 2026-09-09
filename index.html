@@ -21,6 +21,7 @@
     --text-header: #ffffff;
     --primary: #ffffff; 
     --radius: 12px;
+    --smooth-curve: cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
 /* --- RESET & BASE --- */
@@ -30,9 +31,14 @@
     box-sizing: border-box;
 }
 
-/* Highly targeted transitions for performance */
-a, button, .nav-item, .action-btn, .feedback-btn, .card, .star, .slider-btn {
-    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease, text-shadow 0.3s ease;
+/* Highly targeted smooth transitions */
+a, button, .nav-item, .action-btn, .feedback-btn, .card, .star, .slider-btn, .site-icon {
+    transition: transform 0.4s var(--smooth-curve), 
+                background-color 0.4s var(--smooth-curve), 
+                border-color 0.4s var(--smooth-curve), 
+                box-shadow 0.4s var(--smooth-curve), 
+                color 0.4s var(--smooth-curve), 
+                text-shadow 0.4s var(--smooth-curve);
 }
 
 html {
@@ -55,7 +61,7 @@ body {
     background-position: center;
     background-attachment: fixed;
     background-repeat: no-repeat;
-    transition: background-image 0.4s ease-in-out;
+    transition: background-image 0.6s var(--smooth-curve);
 }
 
 /* Reduced Blur Overlay */
@@ -110,6 +116,7 @@ button { font-family: inherit; }
     position: sticky;
     top: 0;
     z-index: 1000;
+    transition: background 0.4s var(--smooth-curve), padding 0.4s var(--smooth-curve);
 }
 
 .logo {
@@ -192,7 +199,7 @@ button { font-family: inherit; }
     z-index: 998;
     opacity: 0;
     visibility: hidden;
-    transition: opacity 0.3s ease;
+    transition: opacity 0.4s var(--smooth-curve);
 }
 
 .mobile-nav-overlay.active { opacity: 1; visibility: visible; }
@@ -212,7 +219,7 @@ button { font-family: inherit; }
     flex-direction: column;
     padding: 80px 24px 24px;
     visibility: hidden;
-    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: right 0.4s var(--smooth-curve);
 }
 
 .mobile-nav-menu.active { right: 0; visibility: visible; }
@@ -239,6 +246,16 @@ button { font-family: inherit; }
 @media (max-width: 768px) {
     .hamburger { display: flex; }
     .nav-links { display: none; }
+    
+    /* MOBILE HEADER OVERLAP FIX */
+    .navbar {
+        background: rgba(13, 17, 23, 0.85); /* Solid dark tint */
+        backdrop-filter: blur(12px); /* Frosted glass */
+        -webkit-backdrop-filter: blur(12px);
+        padding: 16px 24px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
 }
 
 /* --- MAIN CONTAINER --- */
@@ -253,11 +270,11 @@ button { font-family: inherit; }
 }
 
 /* --- VIEW UTILITY --- */
-.view-section { display: none; animation: fadeIn 0.4s ease-in-out; }
+.view-section { display: none; animation: fadeIn 0.5s var(--smooth-curve); }
 .view-section.active-view { display: block; }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
+    from { opacity: 0; transform: translateY(15px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
@@ -395,17 +412,22 @@ button { font-family: inherit; }
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
-    padding: 10px 0; 
+    padding: 14px 10px; 
+    border-radius: var(--radius);
+}
+
+.slider .card:hover {
+    transform: translateY(-2px);
 }
 
 .slider .card.active {
     display: flex;
-    animation: fadeSlideIn 0.3s ease forwards;
+    animation: fadeSlideIn 0.4s var(--smooth-curve) forwards;
 }
 
 @keyframes fadeSlideIn {
-    from { opacity: 0; transform: scale(0.95); }
-    to { opacity: 1; transform: scale(1); }
+    from { opacity: 0; transform: scale(0.96) translateX(10px); }
+    to { opacity: 1; transform: scale(1) translateX(0); }
 }
 
 .slider-btn {
@@ -427,7 +449,7 @@ button { font-family: inherit; }
 
 .slider-btn:hover {
     color: var(--text-header);
-    transform: translateY(-50%) scale(1.1);
+    transform: translateY(-50%) scale(1.15);
 }
 
 .slider-btn.prev { left: -10px; }
@@ -436,7 +458,7 @@ button { font-family: inherit; }
 /* --- CARDS CONTENT (Floating) --- */
 .card-header {
     display: flex;
-    align-items: flex-start; /* Changed to accommodate multi-line wrap */
+    align-items: flex-start; 
     gap: 16px;
     margin-bottom: 16px;
     width: 100%;
@@ -456,7 +478,7 @@ button { font-family: inherit; }
     flex-direction: column;
     flex: 1;
     gap: 6px;
-    min-width: 0; /* Prevents overflow */
+    min-width: 0; 
 }
 
 .card h3 {
@@ -469,10 +491,42 @@ button { font-family: inherit; }
     overflow-wrap: break-word;
 }
 
+/* Meta Data Formatting */
+.meta-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 2px;
+    flex-wrap: wrap;
+}
+.meta-label {
+    font-weight: 600;
+    color: var(--text-main);
+}
+.site-icons {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.site-icon {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    object-fit: contain;
+    background: rgba(255,255,255,0.8);
+    padding: 1px;
+}
+.site-icon:hover {
+    transform: scale(1.25);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
+}
 .flags {
     display: flex;
     flex-wrap: wrap;
-    gap: 6px;
+    gap: 4px;
     font-size: 1.1rem;
     line-height: 1;
 }
@@ -516,7 +570,16 @@ button { font-family: inherit; }
     backdrop-filter: blur(4px);
 }
 
-.card a:hover {
+.title-container a {
+    background: transparent;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    backdrop-filter: none;
+    margin: 0;
+}
+
+.card .links-container a:hover {
     background: rgba(255, 255, 255, 0.15);
     border-color: rgba(255, 255, 255, 0.5);
     transform: translateY(-2px);
@@ -831,6 +894,21 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://global.manga-up.com/assets/icon.webp" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Manga Plus,Bookwalker,Manga-UP,Manga Million,Gangan Online & Zebcrack Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://mangaplus.shueisha.co.jp" target="_blank" title="Manga Plus"><img src="https://www.google.com/s2/favicons?domain=mangaplus.shueisha.co.jp&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://bookwalker.com/" target="_blank" title="Bookwalker"><img src="https://www.google.com/s2/favicons?domain=bookwalker.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://global.manga-up.com/" target="_blank" title="Manga-UP"><img src="https://www.google.com/s2/favicons?domain=global.manga-up.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://mangamillion.shueisha.co.jp/" target="_blank" title="Manga Million"><img src="https://www.google.com/s2/favicons?domain=mangamillion.shueisha.co.jp&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://www.ganganonline.com/" target="_blank" title="Gangan Online"><img src="https://www.ganganonline.com/assets/ogp/top.jpeg" class="site-icon" alt="Site"></a>
+                                            <a href="https://zebrack-comic.shueisha.co.jp/" target="_blank" title="Zebcrack"><img src="https://www.google.com/s2/favicons?domain=zebrack-comic.shueisha.co.jp&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇪🇸 🇹🇭 🇧🇷 🇮🇩 🇷🇺 🇫🇷 🇩🇪 🇻🇳 🇯🇵</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -855,7 +933,17 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://c.mangaplaza.com/s/images/header/icon_sitelogo.svg?v=20260108103504" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>MangaPlaza & Comic C'moA Ripper(ENG,JP)</h3>
-                                    <div class="flags">🇺🇸 🇯🇵</div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://mangaplaza.com/" target="_blank" title="MangaPlaza"><img src="https://www.google.com/s2/favicons?domain=mangaplaza.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://www.cmoa.jp/" target="_blank" title="Comic C'moA"><img src="https://c-cmoa.akamaized.net/sol/pcc/images/webclipicon/favicon_cmoa.svg?v=3" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇯🇵</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -880,7 +968,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://manta.net/favicon.ico" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Manta Comic Ripper(ENG,ES,FR)</h3>
-                                    <div class="flags">🇺🇸 🇫🇷 🇪🇸</div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://manta.net/en" target="_blank" title="Manta"><img src="https://www.google.com/s2/favicons?domain=manta.net&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇫🇷 🇪🇸</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -905,7 +1002,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/60/7a/f5/607af51b-e47d-f104-de6c-64fcc9a7cd8d/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/400x400ia-75.webp" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Tappytoon Ripper(ENG,FR,DE)</h3>
-                                    <div class="flags">🇺🇸 🇫🇷 🇩🇪</div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://www.tappytoon.com/" target="_blank" title="Tappytoon"><img src="https://www.google.com/s2/favicons?domain=tappytoon.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇫🇷 🇩🇪</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -929,7 +1035,17 @@ footer a:hover { color: var(--text-header); }
                             <div class="card-header">
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7f/51/9b/7f519b55-f452-d89a-7723-1f4e476cd947/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="card-icon">
                                 <div class="title-container">
-                                    <h3>WebComics Ripper</h3>
+                                    <h3>WebComics Chapter Ripper(All Languages)</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://www.webcomicsapp.com" target="_blank" title="WebComics"><img src="https://www.google.com/s2/favicons?domain=webcomicsapp.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇫🇷 🇵🇹 🇪🇸 🇮🇩</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -937,11 +1053,11 @@ footer a:hover { color: var(--text-header); }
                             </p>
                             <div class="links">
                                 <div class="links-container">
-                                    <a href="https://greasyfork.org/en/scripts/562787-webcomics-ripper" target="_blank">
+                                    <a href="https://greasyfork.org/en/scripts/562787-webcomics-chapter-ripper-all-languages" target="_blank">
                                         <img src="https://greasyfork.org/vite/assets/blacklogo96-CxYTSM_T.png" alt="GreasyFork" class="link-icon" style="filter: invert(1) brightness(2);">
                                         GreasyFork
                                     </a>
-                                    <a href="https://github.com/OZLER365/WebComics-Chapter-Ripper-Userscript" target="_blank">
+                                    <a href="https://github.com/OZLER365/WebComics-Chapter-Ripper-All-Languages-Userscript" target="_blank">
                                         <svg class="link-icon" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
                                         GitHub
                                     </a>
@@ -954,7 +1070,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0b/29/8f/0b298fe2-868a-7581-256e-76001c28ae4d/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Webnovel Comic Ripper(All Languages)</h3>
-                                    <div class="flags">🇺🇸 🇯🇵 🇪🇸 🇵🇹 🇫🇷 🇩🇪 🇻🇳 🇹🇭 🇨🇳 🇮🇩 🇰🇷 🇹🇷 🇵🇭 🇮🇹 🇸🇦 🇷🇺</div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://www.webnovel.com/" target="_blank" title="Webnovel"><img src="https://www.google.com/s2/favicons?domain=webnovel.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇯🇵 🇪🇸 🇵🇹 🇫🇷 🇩🇪 🇻🇳 🇹🇭 🇨🇳 🇮🇩 🇰🇷 🇹🇷 🇵🇭 🇮🇹 🇸🇦 🇷🇺</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -979,6 +1104,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://ridibooks.com/favicon.ico" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Ridibooks Comic Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://ridibooks.com/" target="_blank" title="Ridibooks"><img src="https://www.google.com/s2/favicons?domain=ridibooks.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇰🇷</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1003,6 +1138,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://www.azuki.co/favicon.ico" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Omoi / Azuki Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://www.omoi.com/" target="_blank" title="Omoi"><img src="https://www.google.com/s2/favicons?domain=omoi.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1027,6 +1172,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://comikey.com/favicon.ico" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Comikey Ripper (Manga & Webtoon)</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://comikey.com/" target="_blank" title="Comikey"><img src="https://www.google.com/s2/favicons?domain=comikey.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1051,6 +1206,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9e/81/2a/9e812ae3-62bd-4c11-06ec-ca47e2c9ce3e/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Kakao Page Comic Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://page.kakao.com/" target="_blank" title="KakaoPage"><img src="https://www.google.com/s2/favicons?domain=page.kakao.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇰🇷</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1075,7 +1240,20 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d9/d7/15/d9d71563-9b9c-6545-04ee-4b9ace81bb1e/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>All Lezhin,Beltoon,Kakao-Webtoon,Mr-Blue,Toptoon(JP) Ripper(All Languages)</h3>
-                                    <div class="flags">🇺🇸 🇯🇵 🇰🇷 🇹🇭 🇫🇷 🇩🇪 🇪🇸 🇨🇳 🇹🇼</div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://www.lezhinus.com/" target="_blank" title="Lezhin"><img src="https://www.google.com/s2/favicons?domain=lezhinus.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://www.beltoon.jp" target="_blank" title="Beltoon"><img src="https://www.google.com/s2/favicons?domain=beltoon.jp&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://webtoon.kakao.com/" target="_blank" title="Kakao Webtoon"><img src="https://www.google.com/s2/favicons?domain=webtoon.kakao.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://m.mrblue.com/" target="_blank" title="Mr Blue"><img src="https://www.google.com/s2/favicons?domain=mrblue.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://toptoon.jp/" target="_blank" title="Toptoon JP"><img src="https://www.google.com/s2/favicons?domain=toptoon.jp&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇯🇵 🇰🇷 🇹🇭 🇫🇷 🇩🇪 🇪🇸 🇨🇳 🇹🇼</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1100,6 +1278,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://static3w.kuaikanmanhua.com/_nuxt/static-kkfront-pc/image/logo.f38006f.png" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>KuaiKan Manhua Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://www.kuaikanmanhua.com/" target="_blank" title="KuaiKan"><img src="https://www.google.com/s2/favicons?domain=kuaikanmanhua.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇨🇳</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1124,7 +1312,17 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://play-lh.googleusercontent.com/7nPAJjEXNWjxfQtG3JwwwEXGXm4Tr6ncoOkhzx27omrBQ8v1MmmEWGFZfxwcACX7iEo=w480-h960" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>J-Novel Club Chapter Ripper(ENG,FR,DE)</h3>
-                                    <div class="flags">🇺🇸 🇫🇷 🇩🇪</div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://j-novel.club/" target="_blank" title="J-Novel Club"><img src="https://www.google.com/s2/favicons?domain=j-novel.club&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://jnc-nina.eu/" target="_blank" title="JNC Nina"><img src="https://www.google.com/s2/favicons?domain=jnc-nina.eu&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇫🇷 🇩🇪</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1149,6 +1347,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://comics.inkr.com/_next/static/media/inkr-logo.f50e229a.svg" alt="Icon" class="card-icon" onerror="this.src='https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9e/81/2a/9e812ae3-62bd-4c11-06ec-ca47e2c9ce3e/Placeholder.mill/400x400bb-75.webp'">
                                 <div class="title-container">
                                     <h3>Inkr Comics Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://comics.inkr.com/" target="_blank" title="Inkr"><img src="https://www.google.com/s2/favicons?domain=comics.inkr.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1173,7 +1381,24 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Webtoon_logo.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Tapas,Webtoon,Mangatoon,Toomics,Naver,Dongmanmanhua,Lalatoon,Honeytoon,Toptoon Ripper(All Languages)</h3>
-                                    <div class="flags">🇺🇸 🇰🇷 🇨🇳 🇫🇷 🇩🇪 🇪🇸 🇵🇹 🇮🇹 🇹🇭 🇮🇩 🇻🇳 🇸🇦</div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://tapas.io/" target="_blank" title="Tapas"><img src="https://www.google.com/s2/favicons?domain=tapas.io&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://www.webtoons.com" target="_blank" title="Webtoons"><img src="https://www.google.com/s2/favicons?domain=webtoons.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://mangatoon.mobi/" target="_blank" title="Mangatoon"><img src="https://www.google.com/s2/favicons?domain=mangatoon.mobi&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://toomics.com/" target="_blank" title="Toomics"><img src="https://www.google.com/s2/favicons?domain=toomics.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://comic.naver.com/" target="_blank" title="Naver"><img src="https://www.google.com/s2/favicons?domain=comic.naver.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://m.dongmanmanhua.cn/" target="_blank" title="Dongman"><img src="https://www.google.com/s2/favicons?domain=dongmanmanhua.cn&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://www.lalatoon.com/" target="_blank" title="Lalatoon"><img src="https://www.google.com/s2/favicons?domain=lalatoon.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://honeytoon.com/" target="_blank" title="Honeytoon"><img src="https://www.google.com/s2/favicons?domain=honeytoon.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://global.toptoon.com/" target="_blank" title="Toptoon"><img src="https://www.google.com/s2/favicons?domain=global.toptoon.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸 🇰🇷 🇨🇳 🇫🇷 🇩🇪 🇪🇸 🇵🇹 🇮🇹 🇹🇭 🇮🇩 🇻🇳 🇸🇦</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1198,6 +1423,17 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://play-lh.googleusercontent.com/EY_X2EIcNjp6ugIGzz-2g6H-OXfJlA78ompF5sbOc52e1YYy3_rrmBnB_5zhEOIKUa0gwV1rDC3yGt9WBw4e3w" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Viz/Shonen Jump Canvas Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://www.viz.com/" target="_blank" title="Viz"><img src="https://www.google.com/s2/favicons?domain=viz.com&sz=32" class="site-icon" alt="Site"></a>
+                                            <a href="https://www.shonenjump.com/" target="_blank" title="Shonen Jump"><img src="https://www.google.com/s2/favicons?domain=shonenjump.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1222,6 +1458,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8nvm1mB3kgjFXbVGloI8ausuojP0rlgG1vGoN5Eo38w&s=10" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Toptoon English Only Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://global.toptoon.com/" target="_blank" title="Toptoon"><img src="https://www.google.com/s2/favicons?domain=global.toptoon.com&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1246,6 +1492,16 @@ footer a:hover { color: var(--text-header); }
                                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAb1BMVEVQTP9NSf9IRP9GQf9DPv9PS/89OP9nZP+fnf+9vP/Kyf9KRv9BPP+jof/w7/////98ev/39/+op/+Bfv9yb/+3tf/d3P9XU/83Mf+jov/X1v+xsP/i4f+Oi//q6f9UUP94df+Egv+Xlf9gXf/Ozf883V2DAAAA6ElEQVR4AY2SBZbFIAxFm0BTIfV+d9n/Gufx3eDMO4JciCf/FLGx1jB9k5Qly4uyLPJMOH1nTqu6uamu1L0ybbvGq6uxYmn1yaRvoHIwAo0T7Ht5/PNsOlN38UXWlKC3v24AK+b0DG6+aJrBXbYKP8u53xlR8cHYEX7V2+EKH4nAdIVn60F100AVA8oWRq1n2Hj1+WXZCvzvsNnDllk179pR4g5YLexL9wEPLuEjVoFVbj505DiMmo0GFE0lUoRA+fa38gULz+GWNTkHmw3fEhiTi070e8CkPSMKExhNp9QvODjUKYNF9Qeipxuq30BSZwAAAABJRU5ErkJggg==" alt="Icon" class="card-icon">
                                 <div class="title-container">
                                     <h3>Coolmic Chapter Ripper</h3>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Supported Sites:</span>
+                                        <div class="site-icons">
+                                            <a href="https://coolmic.me/" target="_blank" title="Coolmic"><img src="https://www.google.com/s2/favicons?domain=coolmic.me&sz=32" class="site-icon" alt="Site"></a>
+                                        </div>
+                                    </div>
+                                    <div class="meta-line">
+                                        <span class="meta-label">Languages:</span>
+                                        <div class="flags">🇺🇸</div>
+                                    </div>
                                 </div>
                             </div>
                             <p class="description">
@@ -1294,7 +1550,7 @@ footer a:hover { color: var(--text-header); }
                             <option value="MangaPlaza-And-ComicCmoA-Chapter-Ripper-ENG-JP-Userscript">MangaPlaza & Comic C'moA Ripper(ENG,JP)</option>
                             <option value="Manta-Comic-Ripper-ENG-ES-FR-Userscript">Manta Comic Ripper(ENG,ES,FR)</option>
                             <option value="Tappytoon-Chapter-Ripper-ENG-FR-DE-Userscript">Tappytoon Ripper(ENG,FR,DE)</option>
-                            <option value="WebComics-Chapter-Ripper-Userscript">WebComics Ripper</option>
+                            <option value="WebComics-Chapter-Ripper-All-Languages-Userscript">WebComics Chapter Ripper(All Languages)</option>
                             <option value="Webnovel-Comic-Ripper-All-Languages-Userscript">Webnovel Comic Ripper(All Languages)</option>
                             <option value="Ridibooks-Chapter-Downloader-Userscript">Ridibooks Comic Ripper</option>
                             <option value="Omoi-Azuki-Ripper-Userscript">Omoi/Azuki Chapter Ripper</option>
@@ -1453,7 +1709,7 @@ const extensionURLs = {
     'MangaPlaza-And-ComicCmoA-Chapter-Ripper-ENG-JP-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/560991-mangaplaza-comic-c-moa-ripper-eng-jp/feedback' },
     'Manta-Comic-Ripper-ENG-ES-FR-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562775-manta-comic-ripper-eng-es-fr/feedback' },
     'Tappytoon-Chapter-Ripper-ENG-FR-DE-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562783-tappytoon-ripper-eng-fr-de/feedback' },
-    'WebComics-Chapter-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562787-webcomics-ripper/feedback' },
+    'WebComics-Chapter-Ripper-All-Languages-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562787-webcomics-chapter-ripper-all-languages/feedback' },
     'Webnovel-Comic-Ripper-All-Languages-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562799-webnovel-comic-ripper-all-languages/feedback' },
     'Ridibooks-Chapter-Downloader-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562807-ridibooks-comic-ripper/feedback' },
     'Omoi-Azuki-Ripper-Userscript': { firefox: null, edge: null, greasyfork: 'https://greasyfork.org/en/scripts/562914-omoi-azuki-chapter-ripper/feedback' },

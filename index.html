@@ -436,7 +436,7 @@ button { font-family: inherit; }
 /* --- CARDS CONTENT (Floating) --- */
 .card-header {
     display: flex;
-    align-items: center;
+    align-items: flex-start; /* Changed to accommodate multi-line wrap */
     gap: 16px;
     margin-bottom: 16px;
     width: 100%;
@@ -448,13 +448,33 @@ button { font-family: inherit; }
     border-radius: 8px;
     object-fit: cover;
     box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+    flex-shrink: 0;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 6px;
+    min-width: 0; /* Prevents overflow */
 }
 
 .card h3 {
     color: var(--text-header);
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     font-weight: 600;
-    flex: 1;
+    line-height: 1.4;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.flags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 1.1rem;
+    line-height: 1;
 }
 
 .card .description {
@@ -747,7 +767,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card active">
                             <div class="card-header">
                                 <img src="https://addons.mozilla.org/user-media/addon_icons/2965/2965715-64.png?modified=1d9c10c2" alt="Icon" class="card-icon">
-                                <h3>Universal Image Downloader</h3>
+                                <div class="title-container">
+                                    <h3>Universal Image Downloader</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Firefox/ Edge/ Chrome extension. Downloads images from most sites. Supports zip, subfolders, and auto-descrambling.
@@ -783,7 +805,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card active">
                             <div class="card-header">
                                 <img src="https://addons.mozilla.org/user-media/addon_icons/2965/2965715-64.png?modified=1d9c10c2" alt="Icon" class="card-icon">
-                                <h3>Universal Image Downloader</h3>
+                                <div class="title-container">
+                                    <h3>Universal Image Downloader</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Requires Tampermonkey. Downloads images from various sites with auto-descrambling support.
@@ -805,7 +829,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://global.manga-up.com/assets/icon.webp" alt="Icon" class="card-icon">
-                                <h3>Manga Plus,Bookwalker,Manga-UP,Manga Million,Gangan Online & Zebcrack Ripper</h3>
+                                <div class="title-container">
+                                    <h3>Manga Plus,Bookwalker,Manga-UP,Manga Million,Gangan Online & Zebcrack Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Download high-quality chapter images specifically from These 6 Sites. Requires Tampermonkey.
@@ -827,7 +853,10 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://c.mangaplaza.com/s/images/header/icon_sitelogo.svg?v=20260108103504" alt="Icon" class="card-icon">
-                                <h3>MangaPlaza & Comic C'moA Ripper(ENG,JP)</h3>
+                                <div class="title-container">
+                                    <h3>MangaPlaza & Comic C'moA Ripper(ENG,JP)</h3>
+                                    <div class="flags">🇺🇸 🇯🇵</div>
+                                </div>
                             </div>
                             <p class="description">
                                 Optimized for MangaPlaza and Comic C'moA. Downloads chapters directly. Requires Tampermonkey/Violentmonkey.
@@ -849,7 +878,10 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://manta.net/favicon.ico" alt="Icon" class="card-icon">
-                                <h3>Manta Comic Ripper(ENG,ES,FR)</h3>
+                                <div class="title-container">
+                                    <h3>Manta Comic Ripper(ENG,ES,FR)</h3>
+                                    <div class="flags">🇺🇸 🇫🇷 🇪🇸</div>
+                                </div>
                             </div>
                             <p class="description">
                                 Specialized downloader for Manta Comics. Ensures correct image ordering.
@@ -871,7 +903,10 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/60/7a/f5/607af51b-e47d-f104-de6c-64fcc9a7cd8d/AppIcon-0-0-1x_U007emarketing-0-8-0-85-220.png/400x400ia-75.webp" alt="Icon" class="card-icon">
-                                <h3>Tappytoon Ripper(ENG,FR,DE)</h3>
+                                <div class="title-container">
+                                    <h3>Tappytoon Ripper(ENG,FR,DE)</h3>
+                                    <div class="flags">🇺🇸 🇫🇷 🇩🇪</div>
+                                </div>
                             </div>
                             <p class="description">
                                 Extracts and downloads chapters from Tappytoon. Easy to use with Tampermonkey.
@@ -893,7 +928,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/7f/51/9b/7f519b55-f452-d89a-7723-1f4e476cd947/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="card-icon">
-                                <h3>WebComics Ripper</h3>
+                                <div class="title-container">
+                                    <h3>WebComics Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Dedicated tool for downloading from WebComics. Fast and reliable execution.
@@ -915,7 +952,10 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/0b/29/8f/0b298fe2-868a-7581-256e-76001c28ae4d/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="card-icon">
-                                <h3>Webnovel Comic Ripper(All Languages)</h3>
+                                <div class="title-container">
+                                    <h3>Webnovel Comic Ripper(All Languages)</h3>
+                                    <div class="flags">🇺🇸 🇯🇵 🇪🇸 🇵🇹 🇫🇷 🇩🇪 🇻🇳 🇹🇭 🇨🇳 🇮🇩 🇰🇷 🇹🇷 🇵🇭 🇮🇹 🇸🇦 🇷🇺</div>
+                                </div>
                             </div>
                             <p class="description">
                                 Downloads comic chapters from Webnovel. Simple interface and effective scraping.
@@ -937,7 +977,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://ridibooks.com/favicon.ico" alt="Icon" class="card-icon">
-                                <h3>Ridibooks Comic Ripper</h3>
+                                <div class="title-container">
+                                    <h3>Ridibooks Comic Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Tailored for Ridibooks. Handles chapter structure efficiently.
@@ -959,7 +1001,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://www.azuki.co/favicon.ico" alt="Icon" class="card-icon">
-                                <h3>Omoi / Azuki Ripper</h3>
+                                <div class="title-container">
+                                    <h3>Omoi / Azuki Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Downloads from Omoi/Azuki. Keeps original quality and formatting.
@@ -981,7 +1025,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://comikey.com/favicon.ico" alt="Icon" class="card-icon">
-                                <h3>Comikey Ripper (Manga & Webtoon)</h3>
+                                <div class="title-container">
+                                    <h3>Comikey Ripper (Manga & Webtoon)</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Automated downloader for Comikey chapters. Works best with Tampermonkey.
@@ -1003,7 +1049,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9e/81/2a/9e812ae3-62bd-4c11-06ec-ca47e2c9ce3e/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="card-icon">
-                                <h3>Kakao Page Comic Ripper</h3>
+                                <div class="title-container">
+                                    <h3>Kakao Page Comic Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Specific tool for Kakao Page. Extract images seamlessly.
@@ -1025,7 +1073,10 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/d9/d7/15/d9d71563-9b9c-6545-04ee-4b9ace81bb1e/Placeholder.mill/400x400bb-75.webp" alt="Icon" class="card-icon">
-                                <h3>All Lezhin,Beltoon,Kakao-Webtoon,Mr-Blue,Toptoon(JP) Ripper(All Languages)</h3>
+                                <div class="title-container">
+                                    <h3>All Lezhin,Beltoon,Kakao-Webtoon,Mr-Blue,Toptoon(JP) Ripper(All Languages)</h3>
+                                    <div class="flags">🇺🇸 🇯🇵 🇰🇷 🇹🇭 🇫🇷 🇩🇪 🇪🇸 🇨🇳 🇹🇼</div>
+                                </div>
                             </div>
                             <p class="description">
                                 Works for both All versions of Lezhin and Others Sites Mentioned. High reliability.
@@ -1047,7 +1098,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://static3w.kuaikanmanhua.com/_nuxt/static-kkfront-pc/image/logo.f38006f.png" alt="Icon" class="card-icon">
-                                <h3>KuaiKan Manhua Ripper</h3>
+                                <div class="title-container">
+                                    <h3>KuaiKan Manhua Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Extracts chapters from KuaiKan Manhua effortlessly.
@@ -1069,7 +1122,10 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://play-lh.googleusercontent.com/7nPAJjEXNWjxfQtG3JwwwEXGXm4Tr6ncoOkhzx27omrBQ8v1MmmEWGFZfxwcACX7iEo=w480-h960" alt="Icon" class="card-icon">
-                                <h3>J-Novel Club Chapter Ripper(ENG,FR,DE)</h3>
+                                <div class="title-container">
+                                    <h3>J-Novel Club Chapter Ripper(ENG,FR,DE)</h3>
+                                    <div class="flags">🇺🇸 🇫🇷 🇩🇪</div>
+                                </div>
                             </div>
                             <p class="description">
                                 Designed for J-Novel Club & JNC Nina. Clean download process for all chapters.
@@ -1091,7 +1147,9 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://comics.inkr.com/_next/static/media/inkr-logo.f50e229a.svg" alt="Icon" class="card-icon" onerror="this.src='https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/9e/81/2a/9e812ae3-62bd-4c11-06ec-ca47e2c9ce3e/Placeholder.mill/400x400bb-75.webp'">
-                                <h3>Inkr Comics Ripper</h3>
+                                <div class="title-container">
+                                    <h3>Inkr Comics Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
                                 Extracts and downloads chapters from Inkr Comics. Fast and reliable.
@@ -1113,10 +1171,13 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://upload.wikimedia.org/wikipedia/commons/c/c3/Webtoon_logo.png?utm_source=commons.wikimedia.org&utm_campaign=index&utm_content=original" alt="Icon" class="card-icon">
-                                <h3>Tapas,Webtoon,Mangatoon,Toomics,Naver,Dongmanmanhua,Lalatoon,Honeytoon,Toptoon Ripper(All Languages)</h3>
+                                <div class="title-container">
+                                    <h3>Tapas,Webtoon,Mangatoon,Toomics,Naver,Dongmanmanhua,Lalatoon,Honeytoon,Toptoon Ripper(All Languages)</h3>
+                                    <div class="flags">🇺🇸 🇰🇷 🇨🇳 🇫🇷 🇩🇪 🇪🇸 🇵🇹 🇮🇹 🇹🇭 🇮🇩 🇻🇳 🇸🇦</div>
+                                </div>
                             </div>
                             <p class="description">
-                                
+                                Comprehensive downloader supporting a massive list of comic sites including Tapas, Webtoon, Naver, and more in multiple languages.
                             </p>
                             <div class="links">
                                 <div class="links-container">
@@ -1135,10 +1196,12 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://play-lh.googleusercontent.com/EY_X2EIcNjp6ugIGzz-2g6H-OXfJlA78ompF5sbOc52e1YYy3_rrmBnB_5zhEOIKUa0gwV1rDC3yGt9WBw4e3w" alt="Icon" class="card-icon">
-                                <h3>Viz/Shonen Jump Canvas Ripper</h3>
+                                <div class="title-container">
+                                    <h3>Viz/Shonen Jump Canvas Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
-                                
+                                Extracts and downloads high-quality canvas images directly from Viz and Shonen Jump.
                             </p>
                             <div class="links">
                                 <div class="links-container">
@@ -1157,10 +1220,12 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8nvm1mB3kgjFXbVGloI8ausuojP0rlgG1vGoN5Eo38w&s=10" alt="Icon" class="card-icon">
-                                <h3>Toptoon English Only Ripper</h3>
+                                <div class="title-container">
+                                    <h3>Toptoon English Only Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
-                                
+                                Dedicated tool for downloading translated chapters from the English version of Toptoon quickly and easily.
                             </p>
                             <div class="links">
                                 <div class="links-container">
@@ -1179,10 +1244,12 @@ footer a:hover { color: var(--text-header); }
                         <div class="card">
                             <div class="card-header">
                                 <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAb1BMVEVQTP9NSf9IRP9GQf9DPv9PS/89OP9nZP+fnf+9vP/Kyf9KRv9BPP+jof/w7/////98ev/39/+op/+Bfv9yb/+3tf/d3P9XU/83Mf+jov/X1v+xsP/i4f+Oi//q6f9UUP94df+Egv+Xlf9gXf/Ozf883V2DAAAA6ElEQVR4AY2SBZbFIAxFm0BTIfV+d9n/Gufx3eDMO4JciCf/FLGx1jB9k5Qly4uyLPJMOH1nTqu6uamu1L0ybbvGq6uxYmn1yaRvoHIwAo0T7Ht5/PNsOlN38UXWlKC3v24AK+b0DG6+aJrBXbYKP8u53xlR8cHYEX7V2+EKH4nAdIVn60F100AVA8oWRq1n2Hj1+WXZCvzvsNnDllk179pR4g5YLexL9wEPLuEjVoFVbj505DiMmo0GFE0lUoRA+fa38gULz+GWNTkHmw3fEhiTi070e8CkPSMKExhNp9QvODjUKYNF9Qeipxuq30BSZwAAAABJRU5ErkJggg==" alt="Icon" class="card-icon">
-                                <h3>Coolmic Chapter Ripper</h3>
+                                <div class="title-container">
+                                    <h3>Coolmic Chapter Ripper</h3>
+                                </div>
                             </div>
                             <p class="description">
-                                
+                                Downloads comic chapters seamlessly from Coolmic, keeping the original image quality and formatting intact.
                             </p>
                             <div class="links">
                                 <div class="links-container">
